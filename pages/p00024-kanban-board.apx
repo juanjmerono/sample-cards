@@ -1,0 +1,521 @@
+page 24 (
+    name: Kanban Board
+    alias: KANBAN-BOARD
+    title: &APP_NAME. - Kanban Board
+    appearance {
+        pageTemplate: @/standard
+        templateOptions: #DEFAULT#
+    }
+    navigation {
+        cursorFocus: doNotFocusCursor
+    }
+    css {
+        inline:
+            ```css
+            .kanban-board {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1rem;
+                align-items: start;
+            }
+            .kanban-column {
+                background: #f8f8f8;
+                border-radius: 8px;
+                padding: 0.5rem;
+                min-height: 300px;
+            }
+            .kanban-column-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 0.5rem 0.75rem;
+                margin-bottom: 0.5rem;
+            }
+            .kanban-column-title {
+                font-weight: 700;
+                font-size: 0.95rem;
+            }
+            .kanban-count {
+                background: #e0e0e0;
+                border-radius: 12px;
+                padding: 2px 10px;
+                font-size: 0.8rem;
+                color: #555;
+            }
+            .kanban-cards {
+                min-height: 100px;
+            }
+            .kanban-cards .t-Cards {
+                cursor: grab;
+                transition: box-shadow 0.15s ease;
+            }
+            .kanban-cards .t-Cards:active {
+                cursor: grabbing;
+            }
+            .kanban-ghost {
+                opacity: 0.4;
+                background: #e8e8e8;
+                border: 2px dashed #aaa;
+            }
+            .kanban-drag {
+                box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+                transform: rotate(2deg);
+            }
+            .sortable-fallback {
+                margin-top: 1rem;
+            }
+            .priority-LOW .t-Card-badge { background-color: #4caf50 !important; }
+            .priority-MEDIUM .t-Card-badge { background-color: #2196f3 !important; }
+            .priority-HIGH .t-Card-badge { background-color: #ff9800 !important; }
+            .priority-URGENT .t-Card-badge { background-color: #f44336 !important; }
+            @media (max-width: 768px) {
+                .kanban-board {
+                    grid-template-columns: 1fr;
+                }
+            }
+            ```
+    }
+    security {
+        authorizationScheme: mustNotBePublicUser
+        pageAccessProtection: argumentsMustHaveChecksum
+        formAutoComplete: false
+    }
+
+    region about-this-page (
+        name: About this page
+        type: staticContent
+        source {
+            htmlCode: <p>This Kanban board demonstrates drag & drop functionality using APEX Cards regions and SortableJS. Drag cards between columns to change their status — the update is persisted to the database via an AJAX Callback.</p>
+        }
+        layout {
+            sequence: 10
+            slot: body
+        }
+        appearance {
+            template: @/collapsible
+            templateOptions: [
+                #DEFAULT#
+                is-collapsed
+                t-Region--scrollBody
+            ]
+            icon: fa-columns
+            renderComponents: belowContent
+        }
+    )
+
+    region breadcrumb (
+        name: Breadcrumb
+        type: breadcrumb
+        source {
+            breadcrumb: @breadcrumb
+        }
+        layout {
+            sequence: 70
+            slot: breadcrumbBar
+        }
+        appearance {
+            template: @/title-bar
+            templateOptions: [
+                #DEFAULT#
+                t-BreadcrumbRegion--useBreadcrumbTitle
+            ]
+        }
+        componentAppearance {
+            breadcrumbTemplate: @/breadcrumb
+            templateOptions: #DEFAULT#
+        }
+    )
+
+    region done-cards (
+        name: Done Cards
+        type: cards
+        source {
+            location: localDatabase
+            type: sqlQuery
+            sqlQuery:
+                ```sql
+                select id, title, description, status, priority, assignee, sort_order
+                from eba_demo_card_task
+                where status = 'DONE'
+                order by sort_order
+                ```
+        }
+        layout {
+            sequence: 50
+            slot: body
+        }
+        appearance {
+            template: @/cards-container
+            templateOptions: [
+                #DEFAULT#
+                t-CardsRegion--styleB
+            ]
+        }
+        advanced {
+            htmlDomId: region-done
+        }
+        card {
+            primaryKeyColumn1: ID
+        }
+        title {
+            column: TITLE
+        }
+        subtitle {
+            column: ASSIGNEE
+        }
+        body {
+            column: DESCRIPTION
+        }
+        iconAndBadge {
+            badgeColumn: PRIORITY
+        }
+        pagination {
+            showTotalCount: true
+        }
+    )
+
+    region in-progress-cards (
+        name: In Progress Cards
+        type: cards
+        source {
+            location: localDatabase
+            type: sqlQuery
+            sqlQuery:
+                ```sql
+                select id, title, description, status, priority, assignee, sort_order
+                from eba_demo_card_task
+                where status = 'IN_PROGRESS'
+                order by sort_order
+                ```
+        }
+        layout {
+            sequence: 40
+            slot: body
+        }
+        appearance {
+            template: @/cards-container
+            templateOptions: [
+                #DEFAULT#
+                t-CardsRegion--styleB
+            ]
+        }
+        advanced {
+            htmlDomId: region-in-progress
+        }
+        card {
+            primaryKeyColumn1: ID
+        }
+        title {
+            column: TITLE
+        }
+        subtitle {
+            column: ASSIGNEE
+        }
+        body {
+            column: DESCRIPTION
+        }
+        iconAndBadge {
+            badgeColumn: PRIORITY
+        }
+        pagination {
+            showTotalCount: true
+        }
+    )
+
+    region kanban-board-container (
+        name: Kanban Board
+        type: staticContent
+        source {
+            htmlCode:
+                ```html
+                <div class="kanban-board">
+                    <div class="kanban-column" id="kanban-todo">
+                        <div class="kanban-column-header">
+                            <span class="kanban-column-title"><span class="t-Icon fa-circle u-color-7"></span> To Do</span>
+                            <span class="kanban-count" id="count-todo"></span>
+                        </div>
+                        <div class="kanban-cards" id="cards-todo">
+                        </div>
+                    </div>
+                    <div class="kanban-column" id="kanban-in-progress">
+                        <div class="kanban-column-header">
+                            <span class="kanban-column-title"><span class="t-Icon fa-circle u-color-1"></span> In Progress</span>
+                            <span class="kanban-count" id="count-in-progress"></span>
+                        </div>
+                        <div class="kanban-cards" id="cards-in-progress">
+                        </div>
+                    </div>
+                    <div class="kanban-column" id="kanban-done">
+                        <div class="kanban-column-header">
+                            <span class="kanban-column-title"><span class="t-Icon fa-circle u-color-3"></span> Done</span>
+                            <span class="kanban-count" id="count-done"></span>
+                        </div>
+                        <div class="kanban-cards" id="cards-done">
+                        </div>
+                    </div>
+                </div>
+                <div id="sortable-fallback" class="sortable-fallback" style="display:none;">
+                    <div class="t-Alert t-Alert--warning t-Alert--horizontalIcons" role="alert">
+                        <div class="t-Alert-wrap">
+                            <div class="t-Alert-icon"><span class="t-Icon fa-warning"></span></div>
+                            <div class="t-Alert-content">Drag & drop is unavailable. SortableJS could not be loaded.</div>
+                        </div>
+                    </div>
+                </div>
+                ```
+        }
+        layout {
+            sequence: 20
+            slot: body
+        }
+        appearance {
+            template: @/blank-with-attributes
+            templateOptions: #DEFAULT#
+        }
+    )
+
+    region todo-cards (
+        name: To Do Cards
+        type: cards
+        source {
+            location: localDatabase
+            type: sqlQuery
+            sqlQuery:
+                ```sql
+                select id, title, description, status, priority, assignee, sort_order
+                from eba_demo_card_task
+                where status = 'TODO'
+                order by sort_order
+                ```
+        }
+        layout {
+            sequence: 30
+            slot: body
+        }
+        appearance {
+            template: @/cards-container
+            templateOptions: [
+                #DEFAULT#
+                t-CardsRegion--styleB
+            ]
+        }
+        advanced {
+            htmlDomId: region-todo
+        }
+        card {
+            primaryKeyColumn1: ID
+        }
+        title {
+            column: TITLE
+        }
+        subtitle {
+            column: ASSIGNEE
+        }
+        body {
+            column: DESCRIPTION
+        }
+        iconAndBadge {
+            badgeColumn: PRIORITY
+        }
+        pagination {
+            showTotalCount: true
+        }
+    )
+
+    pageItem P24_TASK_ID (
+        type: hidden
+        layout {
+            sequence: 10
+            slot: body
+        }
+        security {
+            sessionStateProtection: checksumRequiredSessionLevel
+            encryptSessionState: false
+        }
+    )
+
+    dynamicAction init-kanban (
+        name: Initialize Kanban Drag & Drop
+        execution {
+            sequence: 20
+        }
+        when {
+            event: ready
+        }
+
+        action native-javascript-code (
+            action: executeJsCode
+            settings {
+                jsCode:
+                    ```javascript-browser
+                    (function() {
+                        if (typeof Sortable === 'undefined') {
+                            $('#sortable-fallback').show();
+                            return;
+                        }
+                    
+                        var statusMap = {
+                            'cards-todo': 'TODO',
+                            'cards-in-progress': 'IN_PROGRESS',
+                            'cards-done': 'DONE'
+                        };
+                    
+                        var countMap = {
+                            'cards-todo': '#count-todo',
+                            'cards-in-progress': '#count-in-progress',
+                            'cards-done': '#count-done'
+                        };
+                    
+                        function updateCounts() {
+                            Object.keys(countMap).forEach(function(containerId) {
+                                var count = $('#' + containerId + ' .t-Cards').length;
+                                $(countMap[containerId]).text('(' + count + ')');
+                            });
+                        }
+                    
+                        function addTaskIdAttrs(containerId) {
+                            $('#' + containerId + ' .t-Cards').each(function() {
+                                var $card = $(this);
+                                if (!$card.attr('data-task-id')) {
+                                    var href = $card.find('a').attr('href') || '';
+                                    var match = href.match(/p24_item_id[=:](\d+)/);
+                                    if (match) {
+                                        $card.attr('data-task-id', match[1]);
+                                    }
+                                }
+                            });
+                        }
+                    
+                        ['cards-todo', 'cards-in-progress', 'cards-done'].forEach(function(containerId) {
+                            addTaskIdAttrs(containerId);
+                        });
+                    
+                        updateCounts();
+                    
+                        var containers = ['cards-todo', 'cards-in-progress', 'cards-done'];
+                        containers.forEach(function(containerId) {
+                            new Sortable(document.getElementById(containerId), {
+                                group: 'kanban',
+                                animation: 150,
+                                ghostClass: 'kanban-ghost',
+                                dragClass: 'kanban-drag',
+                                onEnd: function(evt) {
+                                    var item = evt.item;
+                                    var taskId = item.getAttribute('data-task-id');
+                                    var newContainer = evt.to.id;
+                                    var newStatus = statusMap[newContainer];
+                                    var newPosition = evt.newIndex;
+                    
+                                    if (!taskId) {
+                                        console.error('Kanban: Could not determine task ID');
+                                        return;
+                                    }
+                    
+                                    if (evt.from.id === evt.to.id) {
+                                        return;
+                                    }
+                    
+                                    apex.server.process(
+                                        'UPDATE_TASK_STATUS',
+                                        {
+                                            x01: newStatus,
+                                            x02: (newPosition + 1) * 10,
+                                            x03: taskId
+                                        },
+                                        {
+                                            success: function() {
+                                                apex.region('region-todo').refresh();
+                                                apex.region('region-in-progress').refresh();
+                                                apex.region('region-done').refresh();
+                                            },
+                                            error: function(jqXHR, textStatus, errorThrown) {
+                                                apex.message.showErrors([{
+                                                    type: 'error',
+                                                    location: 'page',
+                                                    message: 'Failed to update task status: ' + errorThrown,
+                                                    unsafe: false
+                                                }]);
+                                                $(evt.from).append(item);
+                                            }
+                                        }
+                                    );
+                                }
+                            });
+                        });
+                    })();
+                    ```
+            }
+            execution {
+                sequence: 10
+            }
+        )
+
+    )
+
+    dynamicAction load-sortablejs (
+        name: Load SortableJS
+        execution {
+            sequence: 10
+        }
+        when {
+            event: ready
+        }
+
+        action native-javascript-code (
+            action: executeJsCode
+            settings {
+                jsCode:
+                    ```javascript-browser
+                    var script = document.createElement('script');
+                    script.src = 'https://cdn.jsdelivr.net/npm/sortablejs@1.15.6/Sortable.min.js';
+                    script.onload = function() {
+                        apex.da.initDaEventList();
+                    };
+                    script.onerror = function() {
+                        $('#sortable-fallback').show();
+                    };
+                    document.head.appendChild(script);
+                    ```
+            }
+            execution {
+                sequence: 10
+            }
+        )
+
+    )
+
+    process UPDATE_TASK_STATUS (
+        name: UPDATE_TASK_STATUS
+        type: executeCode
+        source {
+            plsqlCode:
+                ```plsql
+                begin
+                    update eba_demo_card_task
+                    set status = apex_application.g_x01,
+                        sort_order = to_number(apex_application.g_x02)
+                    where id = to_number(apex_application.g_x03);
+                
+                    apex_json.open_object;
+                    apex_json.write('success', true);
+                    apex_json.close_object;
+                exception
+                    when others then
+                        apex_json.open_object;
+                        apex_json.write('success', false);
+                        apex_json.write('error', sqlerrm);
+                        apex_json.close_object;
+                end;
+                ```
+        }
+        execution {
+            sequence: 10
+            point: ajaxCallback
+        }
+        advanced {
+            executionMappingIdentifier: 8407080854693358
+        }
+    )
+
+)
+

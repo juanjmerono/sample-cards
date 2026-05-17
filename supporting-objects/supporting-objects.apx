@@ -14,6 +14,7 @@ supportingObject (
             EBA_DEMO_CARD_EMP
             EBA_DEMO_CARD_VEHICLE_SPEED
             EBA_DEMO_CARD_RANDOM_IMAGE
+            EBA_DEMO_CARD_TASK
         ]
     }
     deinstall {
