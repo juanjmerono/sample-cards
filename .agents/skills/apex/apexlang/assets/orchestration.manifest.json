@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "description": "Registry of orchestration masters used by routers.",
+  "masters": [
+    {
+      "id": "apex-generation",
+      "workflow": "SKILL.md"
+    },
+    {
+      "id": "plsql",
+      "workflow": "not-bundled/plsql"
+    },
+    {
+      "id": "schema-modeling",
+      "workflow": "not-bundled/schema-modeling"
+    }
+  ]
+}

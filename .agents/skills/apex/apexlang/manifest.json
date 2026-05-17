@@ -1,0 +1,1657 @@
+{
+  "package_name": "apexlang",
+  "package_profile": "public-product",
+  "output_dir": "dist/apexlang",
+  "excluded_roots": [
+    "skills/plsql",
+    "skills/schema-modeling",
+    "artifacts",
+    "ai-context/apexlang/logs",
+    "applications",
+    "routing-diagrams"
+  ],
+  "required_output_files": [
+    "README.md",
+    "SKILL.md",
+    "agents/openai.yaml",
+    "assets/routing-index.json",
+    "assets/router-catalog.json",
+    "assets/load-policies.json",
+    "assets/workspace-intelligence.json",
+    "assets/context-adapters.json",
+    "assets/context-schema.json",
+    "assets/apexlang/catalog.json",
+    "assets/orchestration.manifest.json",
+    "assets/rules-mapping.json",
+    "assets/component-policies.json",
+    "assets/component-attributes.json",
+    "references/policies/compiler-prop-map.md",
+    "references/workflows/apex-generation.md",
+    "references/workflows/apexlang/apexlang-execution-model.md",
+    "references/workflows/apexlang/prompt-contracts.md",
+    "references/domains/README.md",
+    "references/domains/page-components/business-logic.md",
+    "references/domains/page-components/screenshot-to-layout.md",
+    "references/ops/sqlcl.md",
+    "references/ops/runtime-gates.md",
+    "tools/apexctl.mjs",
+    "tools/query-valid-props.mjs",
+    "tools/query-valid-props-normalize.mjs",
+    "tools/query-valid-props-runtime.mjs",
+    "tools/compiler-truth-audit.mjs",
+    "runtime/runtime.bundle.mjs",
+    "runtime/runtime_resolution.mjs",
+    "runtime/sqlcl_preflight.mjs",
+    "runtime/lib/common.mjs",
+    "runtime/internal/python/validate_apexlang.py",
+    "runtime/internal/python/validate_apexlang_vocab.py",
+    "runtime/internal/python/validate_validations.py",
+    "runtime/internal/python/validator_common.py",
+    "templates/base-app-structure",
+    "templates/base-app-structure/README.md",
+    "templates/base-app-structure/base-app-structure._common.md",
+    "templates/base-app-structure/base-app-structure._index.md",
+    "templates/base-app-structure/base-app-structure.registry.json",
+    "templates/base-app-structure/base-app-runtime-seed.manifest.json",
+    "templates/base-app-structure/scaffold-example/application.apx"
+  ],
+  "workspace_source_classes": [
+    "table_metadata",
+    "data_model",
+    "api_contract",
+    "requirements",
+    "live_db"
+  ],
+  "source_precedence": [
+    "table_metadata",
+    "data_model",
+    "api_contract",
+    "requirements",
+    "live_db"
+  ],
+  "public_entrypoints": [],
+  "bundled_runtime_sources": [
+    {
+      "source": "skills/sqlcl/tools/sqlcl_preflight.mjs",
+      "dest": "runtime/sqlcl_preflight.mjs"
+    },
+    {
+      "source": "skills/sqlcl/tools/runtime_resolution.mjs",
+      "dest": "runtime/runtime_resolution.mjs"
+    },
+    {
+      "source": "skills/apexlang/tools/lib/common.mjs",
+      "dest": "runtime/lib/common.mjs"
+    },
+    {
+      "source": "skills/apexlang/tools/internal/python/validate_apexlang.py",
+      "dest": "runtime/internal/python/validate_apexlang.py"
+    },
+    {
+      "source": "skills/apexlang/tools/internal/python/validate_apexlang_vocab.py",
+      "dest": "runtime/internal/python/validate_apexlang_vocab.py"
+    },
+    {
+      "source": "skills/apexlang/tools/internal/python/validate_validations.py",
+      "dest": "runtime/internal/python/validate_validations.py"
+    },
+    {
+      "source": "skills/apexlang/tools/internal/python/validator_common.py",
+      "dest": "runtime/internal/python/validator_common.py"
+    }
+  ],
+  "portable_reference_roots": [
+    "SKILL.md",
+    "tools/apexctl.mjs",
+    "tools/query-valid-props.mjs",
+    "tools/query-valid-props-normalize.mjs",
+    "tools/query-valid-props-runtime.mjs",
+    "tools/compiler-truth-audit.mjs"
+  ],
+  "forbidden_runtime_patterns": [
+    "skills/apexlang/",
+    "skills/sqlcl/",
+    "ai-context/",
+    "/Users/",
+    "C:\\\\"
+  ],
+  "public_modes": [
+    "apex-generation",
+    "debugging",
+    "import-runtime"
+  ],
+  "files": [
+    {
+      "path": "README.md",
+      "source": null
+    },
+    {
+      "path": "SKILL.md",
+      "source": null
+    },
+    {
+      "path": "agents/openai.yaml",
+      "source": null
+    },
+    {
+      "path": "assets/apex-generation/components.registry.json",
+      "source": "skills/apexlang/apex-developer/assets/components.registry.json"
+    },
+    {
+      "path": "assets/apexlang/catalog.json",
+      "source": null
+    },
+    {
+      "path": "assets/component-attributes.json",
+      "source": "ai-context/memory-bank/component-attributes.json"
+    },
+    {
+      "path": "assets/component-policies.json",
+      "source": "ai-context/memory-bank/component-policies.json"
+    },
+    {
+      "path": "assets/context-adapters.json",
+      "source": null
+    },
+    {
+      "path": "assets/context-schema.json",
+      "source": null
+    },
+    {
+      "path": "assets/domains/business-logic/computations-prompt.md",
+      "source": "skills/apexlang/business-logic/assets/computations-prompt.md"
+    },
+    {
+      "path": "assets/domains/business-logic/validations-prompt.md",
+      "source": "skills/apexlang/business-logic/assets/validations-prompt.md"
+    },
+    {
+      "path": "assets/domains/page-components/buttons/button-actions.md",
+      "source": "skills/apexlang/page-components/buttons/assets/button-actions.md"
+    },
+    {
+      "path": "assets/domains/page-components/buttons/buttons.md",
+      "source": "skills/apexlang/page-components/buttons/assets/buttons.md"
+    },
+    {
+      "path": "assets/domains/page-components/page-patterns/server-side-conditions-prompt.md",
+      "source": "skills/apexlang/page-components/page-patterns/assets/server-side-conditions-prompt.md"
+    },
+    {
+      "path": "assets/domains/shared-components/translations/default-config.json",
+      "source": "skills/apexlang/shared-components/assets/translations/default-config.json"
+    },
+    {
+      "path": "assets/domains/shared-components/translations/languages.json",
+      "source": "skills/apexlang/shared-components/assets/translations/languages.json"
+    },
+    {
+      "path": "assets/domains/shared-components/translations/prompts.json",
+      "source": "skills/apexlang/shared-components/assets/translations/prompts.json"
+    },
+    {
+      "path": "assets/domains/template-components/button-actions-prompt.md",
+      "source": "skills/apexlang/page-components/template-components/assets/button-actions-prompt.md"
+    },
+    {
+      "path": "assets/domains/template-components/help-text-prompt.md",
+      "source": "skills/apexlang/page-components/template-components/assets/help-text-prompt.md"
+    },
+    {
+      "path": "assets/domains/universal-attr-config/help_text.md",
+      "source": "skills/apexlang/universal-attr-config/assets/help_text.md"
+    },
+    {
+      "path": "assets/domains/universal-attr-config/translations.prompts.json",
+      "source": "skills/apexlang/universal-attr-config/assets/translations.prompts.json"
+    },
+    {
+      "path": "assets/load-policies.json",
+      "source": null
+    },
+    {
+      "path": "assets/orchestration.manifest.json",
+      "source": "skills/sqlcl/assets/orchestration.manifest.json"
+    },
+    {
+      "path": "assets/router-catalog.json",
+      "source": null
+    },
+    {
+      "path": "assets/routing-index.json",
+      "source": null
+    },
+    {
+      "path": "assets/rules-mapping.json",
+      "source": "ai-context/memory-bank/rules-mapping.json"
+    },
+    {
+      "path": "assets/workspace-intelligence.json",
+      "source": null
+    },
+    {
+      "path": "references/domains/README.md",
+      "source": null
+    },
+    {
+      "path": "references/domains/business-logic/computations/workflow-computations-batch.md",
+      "source": "skills/apexlang/business-logic/references/computations/workflow-computations-batch.md"
+    },
+    {
+      "path": "references/domains/business-logic/dynamic-actions/workflow-dynamic-actions-batch.md",
+      "source": "skills/apexlang/business-logic/references/dynamic-actions/workflow-dynamic-actions-batch.md"
+    },
+    {
+      "path": "references/domains/business-logic/dynamic-actions/workflow-dynamic-actions-plsql-batch.md",
+      "source": "skills/apexlang/business-logic/references/dynamic-actions/workflow-dynamic-actions-plsql-batch.md"
+    },
+    {
+      "path": "references/domains/business-logic/dynamic-actions/workflow-dynamic-actions.md",
+      "source": "skills/apexlang/business-logic/references/dynamic-actions/workflow-dynamic-actions.md"
+    },
+    {
+      "path": "references/domains/business-logic/processes/workflow-page-processes-batch.md",
+      "source": "skills/apexlang/business-logic/references/processes/workflow-page-processes-batch.md"
+    },
+    {
+      "path": "references/domains/business-logic/registry.md",
+      "source": "skills/apexlang/business-logic/references/registry.md"
+    },
+    {
+      "path": "references/domains/business-logic/reusable-prompts/computations.md",
+      "source": "skills/apexlang/business-logic/references/reusable-prompts/computations.md"
+    },
+    {
+      "path": "references/domains/business-logic/reusable-prompts/validations.md",
+      "source": "skills/apexlang/business-logic/references/reusable-prompts/validations.md"
+    },
+    {
+      "path": "references/domains/business-logic/templates.md",
+      "source": "skills/apexlang/business-logic/references/templates.md"
+    },
+    {
+      "path": "references/domains/business-logic/validations/README.md",
+      "source": "skills/apexlang/business-logic/references/validations/README.md"
+    },
+    {
+      "path": "references/domains/debugging/apex-debug-messages.md",
+      "source": "skills/apexlang/debugging/references/apex-debug-messages.md"
+    },
+    {
+      "path": "references/domains/debugging/checks-and-commands.md",
+      "source": "skills/apexlang/debugging/references/checks-and-commands.md"
+    },
+    {
+      "path": "references/domains/debugging/example-scenarios.md",
+      "source": "skills/apexlang/debugging/references/example-scenarios.md"
+    },
+    {
+      "path": "references/domains/debugging/failure-map.md",
+      "source": "skills/apexlang/debugging/references/failure-map.md"
+    },
+    {
+      "path": "references/domains/debugging/fix-patterns.md",
+      "source": "skills/apexlang/debugging/references/fix-patterns.md"
+    },
+    {
+      "path": "references/domains/debugging/owning-surfaces.md",
+      "source": "skills/apexlang/debugging/references/owning-surfaces.md"
+    },
+    {
+      "path": "references/domains/debugging/runtime-ui-verification.md",
+      "source": "skills/apexlang/debugging/references/runtime-ui-verification.md"
+    },
+    {
+      "path": "references/domains/page-components/business-logic.md",
+      "source": null
+    },
+    {
+      "path": "references/domains/page-components/buttons.md",
+      "source": "skills/apexlang/page-components/buttons/README.md"
+    },
+    {
+      "path": "references/domains/page-components/buttons/registry.md",
+      "source": "skills/apexlang/page-components/buttons/references/registry.md"
+    },
+    {
+      "path": "references/domains/page-components/buttons/reusable-prompts.md",
+      "source": "skills/apexlang/page-components/buttons/references/reusable-prompts.md"
+    },
+    {
+      "path": "references/domains/page-components/buttons/templates.md",
+      "source": "skills/apexlang/page-components/buttons/references/templates.md"
+    },
+    {
+      "path": "references/domains/page-components/buttons/workflow-button-actions-batch.md",
+      "source": "skills/apexlang/page-components/buttons/references/workflow-button-actions-batch.md"
+    },
+    {
+      "path": "references/domains/page-components/buttons/workflow-button-batch.md",
+      "source": "skills/apexlang/page-components/buttons/references/workflow-button-batch.md"
+    },
+    {
+      "path": "references/domains/page-components/page-items.md",
+      "source": "skills/apexlang/page-components/page-items/README.md"
+    },
+    {
+      "path": "references/domains/page-components/page-items/registry.md",
+      "source": "skills/apexlang/page-components/page-items/references/registry.md"
+    },
+    {
+      "path": "references/domains/page-components/page-items/templates.md",
+      "source": "skills/apexlang/page-components/page-items/references/templates.md"
+    },
+    {
+      "path": "references/domains/page-components/page-patterns.md",
+      "source": "skills/apexlang/page-components/page-patterns/README.md"
+    },
+    {
+      "path": "references/domains/page-components/page-patterns/registry.md",
+      "source": "skills/apexlang/page-components/page-patterns/references/registry.md"
+    },
+    {
+      "path": "references/domains/page-components/page-patterns/templates.md",
+      "source": "skills/apexlang/page-components/page-patterns/references/templates.md"
+    },
+    {
+      "path": "references/domains/page-components/regions.md",
+      "source": "skills/apexlang/page-components/regions/README.md"
+    },
+    {
+      "path": "references/domains/page-components/regions/calendar/workflow-calendar-link-targets.md",
+      "source": "skills/apexlang/page-components/regions/references/calendar/workflow-calendar-link-targets.md"
+    },
+    {
+      "path": "references/domains/page-components/regions/chart/workflow-charts.md",
+      "source": "skills/apexlang/page-components/regions/references/chart/workflow-charts.md"
+    },
+    {
+      "path": "references/domains/page-components/regions/dashboard/workflow-dashboard.md",
+      "source": "skills/apexlang/page-components/regions/references/dashboard/workflow-dashboard.md"
+    },
+    {
+      "path": "references/domains/page-components/regions/form/workflow-modal-crud-form.md",
+      "source": "skills/apexlang/page-components/regions/references/form/workflow-modal-crud-form.md"
+    },
+    {
+      "path": "references/domains/page-components/regions/interactive-report/workflow-interactive-report.md",
+      "source": "skills/apexlang/page-components/regions/references/interactive-report/workflow-interactive-report.md"
+    },
+    {
+      "path": "references/domains/page-components/regions/registry.md",
+      "source": "skills/apexlang/page-components/regions/references/registry.md"
+    },
+    {
+      "path": "references/domains/page-components/regions/templates.md",
+      "source": "skills/apexlang/page-components/regions/references/templates.md"
+    },
+    {
+      "path": "references/domains/page-components/screenshot-to-layout.md",
+      "source": "skills/apexlang/page-components/screenshot-to-layout/README.md"
+    },
+    {
+      "path": "references/domains/page-components/screenshot-to-layout/component-mapping.md",
+      "source": "skills/apexlang/page-components/screenshot-to-layout/references/component-mapping.md"
+    },
+    {
+      "path": "references/domains/page-components/screenshot-to-layout/workflow.md",
+      "source": "skills/apexlang/page-components/screenshot-to-layout/references/workflow.md"
+    },
+    {
+      "path": "references/domains/shared-components/reusable-prompts/translations.md",
+      "source": "skills/apexlang/shared-components/references/reusable-prompts/translations.md"
+    },
+    {
+      "path": "references/domains/shared-components/templates.md",
+      "source": "skills/apexlang/shared-components/references/templates.md"
+    },
+    {
+      "path": "references/domains/shared-components/workflow-translations-batch.md",
+      "source": "skills/apexlang/shared-components/references/workflow-translations-batch.md"
+    },
+    {
+      "path": "references/domains/shared-components/workflow-translations.md",
+      "source": "skills/apexlang/shared-components/references/workflow-translations.md"
+    },
+    {
+      "path": "references/domains/template-components/registry.md",
+      "source": "skills/apexlang/page-components/template-components/references/registry.md"
+    },
+    {
+      "path": "references/domains/template-components/templates.md",
+      "source": "skills/apexlang/page-components/template-components/references/templates.md"
+    },
+    {
+      "path": "references/domains/template-components/workflow-items-templates.md",
+      "source": "skills/apexlang/page-components/template-components/references/workflow-items-templates.md"
+    },
+    {
+      "path": "references/domains/universal-attr-config/reusable-prompts/help_text.md",
+      "source": "skills/apexlang/universal-attr-config/references/reusable-prompts/help_text.md"
+    },
+    {
+      "path": "references/domains/universal-attr-config/templates.md",
+      "source": "skills/apexlang/universal-attr-config/references/templates.md"
+    },
+    {
+      "path": "references/domains/universal-attr-config/workflow-help-text-batch.md",
+      "source": "skills/apexlang/universal-attr-config/references/workflow-help-text-batch.md"
+    },
+    {
+      "path": "references/domains/universal-attr-config/workflow-page-sequencing.md",
+      "source": "skills/apexlang/universal-attr-config/references/workflow-page-sequencing.md"
+    },
+    {
+      "path": "references/domains/universal-attr-config/workflow-server-side-conditions-batch.md",
+      "source": "skills/apexlang/universal-attr-config/references/workflow-server-side-conditions-batch.md"
+    },
+    {
+      "path": "references/ops/one-message-router-contract.md",
+      "source": "skills/sqlcl/references/one-message-router-contract.md"
+    },
+    {
+      "path": "references/ops/reusable-prompts/orchestration-master-generic.md",
+      "source": "skills/sqlcl/references/reusable-prompts/orchestration-master-generic.md"
+    },
+    {
+      "path": "references/ops/reusable-prompts/prompt-normalization.md",
+      "source": "skills/sqlcl/references/reusable-prompts/prompt-normalization.md"
+    },
+    {
+      "path": "references/ops/reusable-prompts/server-side-conditions.md",
+      "source": "skills/sqlcl/references/reusable-prompts/server-side-conditions.md"
+    },
+    {
+      "path": "references/ops/runtime-gates.md",
+      "source": "skills/apexlang/runtime-gates/README.md"
+    },
+    {
+      "path": "references/ops/runtime-gates/01-direct-sqlcl-import.md",
+      "source": "skills/apexlang/runtime-gates/agents/01-direct-sqlcl-import.md"
+    },
+    {
+      "path": "references/ops/runtime-gates/02-direct-sqlcl-validate-gate.md",
+      "source": "skills/apexlang/runtime-gates/agents/02-direct-sqlcl-validate-gate.md"
+    },
+    {
+      "path": "references/ops/shared-reference-index.md",
+      "source": "skills/sqlcl/references/shared-reference-index.md"
+    },
+    {
+      "path": "references/ops/sqlcl-agents/00-connection-gate.md",
+      "source": "skills/sqlcl/agents/00-connection-gate.md"
+    },
+    {
+      "path": "references/ops/sqlcl.md",
+      "source": "skills/sqlcl/SKILL.md"
+    },
+    {
+      "path": "references/policies/apexlang-dsl-reference.md",
+      "source": "ai-context/apexlang/dsl-reference.md"
+    },
+    {
+      "path": "references/policies/compiler-prop-map.md",
+      "source": null
+    },
+    {
+      "path": "references/policies/context-overview.md",
+      "source": "ai-context/README.md"
+    },
+    {
+      "path": "references/policies/governance/00-governance.md",
+      "source": "ai-context/governance/00-governance.md"
+    },
+    {
+      "path": "references/policies/governance/apex-spec-standards.md",
+      "source": "ai-context/governance/apex-spec-standards.md"
+    },
+    {
+      "path": "references/policies/memory-bank/00-guard/ai.guard.md",
+      "source": "ai-context/memory-bank/00-guard/ai.guard.md"
+    },
+    {
+      "path": "references/policies/memory-bank/10-global/apex.acronyms.md",
+      "source": "ai-context/memory-bank/10-global/apex.acronyms.md"
+    },
+    {
+      "path": "references/policies/memory-bank/10-global/apex.global.md",
+      "source": "ai-context/memory-bank/10-global/apex.global.md"
+    },
+    {
+      "path": "references/policies/memory-bank/20-data/apex.logic.md",
+      "source": "ai-context/memory-bank/20-data/apex.logic.md"
+    },
+    {
+      "path": "references/policies/memory-bank/20-data/apex.schema-modeling.md",
+      "source": "ai-context/memory-bank/20-data/apex.schema-modeling.md"
+    },
+    {
+      "path": "references/policies/memory-bank/20-data/apex.sql.md",
+      "source": "ai-context/memory-bank/20-data/apex.sql.md"
+    },
+    {
+      "path": "references/policies/memory-bank/20-data/db.connection.md",
+      "source": "ai-context/memory-bank/20-data/db.connection.md"
+    },
+    {
+      "path": "references/policies/memory-bank/20-data/utplsql.rules.md",
+      "source": "ai-context/memory-bank/20-data/utplsql.rules.md"
+    },
+    {
+      "path": "references/policies/memory-bank/30-pages/apex.blank-page.md",
+      "source": "ai-context/memory-bank/30-pages/apex.blank-page.md"
+    },
+    {
+      "path": "references/policies/memory-bank/30-pages/apex.calendar.md",
+      "source": "ai-context/memory-bank/30-pages/apex.calendar.md"
+    },
+    {
+      "path": "references/policies/memory-bank/30-pages/apex.chart-page.md",
+      "source": "ai-context/memory-bank/30-pages/apex.chart-page.md"
+    },
+    {
+      "path": "references/policies/memory-bank/30-pages/apex.classic-report.md",
+      "source": "ai-context/memory-bank/30-pages/apex.classic-report.md"
+    },
+    {
+      "path": "references/policies/memory-bank/30-pages/apex.dashboard.md",
+      "source": "ai-context/memory-bank/30-pages/apex.dashboard.md"
+    },
+    {
+      "path": "references/policies/memory-bank/30-pages/apex.faceted-search.md",
+      "source": "ai-context/memory-bank/30-pages/apex.faceted-search.md"
+    },
+    {
+      "path": "references/policies/memory-bank/30-pages/apex.form.md",
+      "source": "ai-context/memory-bank/30-pages/apex.form.md"
+    },
+    {
+      "path": "references/policies/memory-bank/30-pages/apex.interactive-grid-page.md",
+      "source": "ai-context/memory-bank/30-pages/apex.interactive-grid-page.md"
+    },
+    {
+      "path": "references/policies/memory-bank/30-pages/apex.interactive-report.md",
+      "source": "ai-context/memory-bank/30-pages/apex.interactive-report.md"
+    },
+    {
+      "path": "references/policies/memory-bank/30-pages/apex.layout.md",
+      "source": "ai-context/memory-bank/30-pages/apex.layout.md"
+    },
+    {
+      "path": "references/policies/memory-bank/30-pages/apex.login-page.md",
+      "source": "ai-context/memory-bank/30-pages/apex.login-page.md"
+    },
+    {
+      "path": "references/policies/memory-bank/30-pages/apex.map-page.md",
+      "source": "ai-context/memory-bank/30-pages/apex.map-page.md"
+    },
+    {
+      "path": "references/policies/memory-bank/30-pages/apex.page.md",
+      "source": "ai-context/memory-bank/30-pages/apex.page.md"
+    },
+    {
+      "path": "references/policies/memory-bank/30-pages/apex.report-column-rendering.md",
+      "source": "ai-context/memory-bank/30-pages/apex.report-column-rendering.md"
+    },
+    {
+      "path": "references/policies/memory-bank/30-pages/apex.smart-filter-search.md",
+      "source": "ai-context/memory-bank/30-pages/apex.smart-filter-search.md"
+    },
+    {
+      "path": "references/policies/memory-bank/40-components/README.md",
+      "source": "ai-context/memory-bank/40-components/README.md"
+    },
+    {
+      "path": "references/policies/memory-bank/40-components/apex.buttons.md",
+      "source": "ai-context/memory-bank/40-components/apex.buttons.md"
+    },
+    {
+      "path": "references/policies/memory-bank/40-components/apex.items.md",
+      "source": "ai-context/memory-bank/40-components/apex.items.md"
+    },
+    {
+      "path": "references/policies/memory-bank/40-components/apex.region-contracts.md",
+      "source": "ai-context/memory-bank/40-components/apex.region-contracts.md"
+    },
+    {
+      "path": "references/policies/memory-bank/40-components/apex.region-data-source.md",
+      "source": "ai-context/memory-bank/40-components/apex.region-data-source.md"
+    },
+    {
+      "path": "references/policies/memory-bank/40-components/apex.region-interactions.md",
+      "source": "ai-context/memory-bank/40-components/apex.region-interactions.md"
+    },
+    {
+      "path": "references/policies/memory-bank/40-components/apex.region-media.md",
+      "source": "ai-context/memory-bank/40-components/apex.region-media.md"
+    },
+    {
+      "path": "references/policies/memory-bank/40-components/apex.templates.md",
+      "source": "ai-context/memory-bank/40-components/apex.templates.md"
+    },
+    {
+      "path": "references/policies/memory-bank/systemPatterns.md",
+      "source": "ai-context/memory-bank/systemPatterns.md"
+    },
+    {
+      "path": "references/workflows/apex-generation.md",
+      "source": "skills/apexlang/apex-developer/README.md"
+    },
+    {
+      "path": "references/workflows/apex-generation/agents/20-agent-draft.md",
+      "source": "skills/apexlang/apex-developer/agents/20-agent-draft.md"
+    },
+    {
+      "path": "references/workflows/apex-generation/agents/30-agent-critique.md",
+      "source": "skills/apexlang/apex-developer/agents/30-agent-critique.md"
+    },
+    {
+      "path": "references/workflows/apex-generation/agents/40-agent-revision.md",
+      "source": "skills/apexlang/apex-developer/agents/40-agent-revision.md"
+    },
+    {
+      "path": "references/workflows/apex-generation/apexlang-skeleton-prompt.md",
+      "source": "skills/apexlang/apex-developer/references/apexlang-skeleton-prompt.md"
+    },
+    {
+      "path": "references/workflows/apex-generation/nlu/nlu-routing-test-matrix.md",
+      "source": "skills/apexlang/apex-developer/references/nlu/nlu-routing-test-matrix.md"
+    },
+    {
+      "path": "references/workflows/apex-generation/nlu/nlu-routing-validation-notes.md",
+      "source": "skills/apexlang/apex-developer/references/nlu/nlu-routing-validation-notes.md"
+    },
+    {
+      "path": "references/workflows/apex-generation/registry.md",
+      "source": "skills/apexlang/apex-developer/references/registry.md"
+    },
+    {
+      "path": "references/workflows/apex-generation/templates.md",
+      "source": "skills/apexlang/apex-developer/references/templates.md"
+    },
+    {
+      "path": "references/workflows/apex-generation/workflow-manifests/apex-generation-agent-suite.md",
+      "source": "skills/apexlang/apex-developer/references/workflow-manifests/apex-generation-agent-suite.md"
+    },
+    {
+      "path": "references/workflows/apex-generation/workflow-manifests/apex-generation-master-workflow.md",
+      "source": "skills/apexlang/apex-developer/references/workflow-manifests/apex-generation-master-workflow.md"
+    },
+    {
+      "path": "references/workflows/apexlang/apexlang-execution-model.md",
+      "source": "skills/apexlang/references/apexlang-execution-model.md"
+    },
+    {
+      "path": "references/workflows/apexlang/prompt-contracts.md",
+      "source": "skills/apexlang/references/prompt-contracts.md"
+    },
+    {
+      "path": "runtime/internal/python/validate_apexlang.py",
+      "source": null
+    },
+    {
+      "path": "runtime/internal/python/validate_apexlang_vocab.py",
+      "source": null
+    },
+    {
+      "path": "runtime/internal/python/validate_validations.py",
+      "source": null
+    },
+    {
+      "path": "runtime/internal/python/validator_common.py",
+      "source": null
+    },
+    {
+      "path": "runtime/lib/common.mjs",
+      "source": null
+    },
+    {
+      "path": "runtime/runtime.bundle.mjs",
+      "source": null
+    },
+    {
+      "path": "runtime/runtime_resolution.mjs",
+      "source": null
+    },
+    {
+      "path": "runtime/sqlcl_preflight.mjs",
+      "source": null
+    },
+    {
+      "path": "templates/base-app-structure/README.md",
+      "source": "ai-context/apexlang/templates/base-app-structure/README.md"
+    },
+    {
+      "path": "templates/base-app-structure/base-app-runtime-seed.manifest.json",
+      "source": "ai-context/apexlang/templates/base-app-structure/base-app-runtime-seed.manifest.json"
+    },
+    {
+      "path": "templates/base-app-structure/base-app-structure._common.md",
+      "source": "ai-context/apexlang/templates/base-app-structure/base-app-structure._common.md"
+    },
+    {
+      "path": "templates/base-app-structure/base-app-structure._index.md",
+      "source": "ai-context/apexlang/templates/base-app-structure/base-app-structure._index.md"
+    },
+    {
+      "path": "templates/base-app-structure/base-app-structure.registry.json",
+      "source": "ai-context/apexlang/templates/base-app-structure/base-app-structure.registry.json"
+    },
+    {
+      "path": "templates/base-app-structure/scaffold-example/.apex/apexlang.json",
+      "source": "ai-context/apexlang/templates/base-app-structure/scaffold-example/.apex/apexlang.json"
+    },
+    {
+      "path": "templates/base-app-structure/scaffold-example/application.apx",
+      "source": "ai-context/apexlang/templates/base-app-structure/scaffold-example/application.apx"
+    },
+    {
+      "path": "templates/base-app-structure/scaffold-example/deployments/default.json",
+      "source": "ai-context/apexlang/templates/base-app-structure/scaffold-example/deployments/default.json"
+    },
+    {
+      "path": "templates/base-app-structure/scaffold-example/page-groups.apx",
+      "source": "ai-context/apexlang/templates/base-app-structure/scaffold-example/page-groups.apx"
+    },
+    {
+      "path": "templates/base-app-structure/scaffold-example/pages/p00000-global-page.apx",
+      "source": "ai-context/apexlang/templates/base-app-structure/scaffold-example/pages/p00000-global-page.apx"
+    },
+    {
+      "path": "templates/base-app-structure/scaffold-example/pages/p00001-home.apx",
+      "source": "ai-context/apexlang/templates/base-app-structure/scaffold-example/pages/p00001-home.apx"
+    },
+    {
+      "path": "templates/base-app-structure/scaffold-example/pages/p09999-login.apx",
+      "source": "ai-context/apexlang/templates/base-app-structure/scaffold-example/pages/p09999-login.apx"
+    },
+    {
+      "path": "templates/base-app-structure/scaffold-example/shared-components/authentications.apx",
+      "source": "ai-context/apexlang/templates/base-app-structure/scaffold-example/shared-components/authentications.apx"
+    },
+    {
+      "path": "templates/base-app-structure/scaffold-example/shared-components/authorizations.apx",
+      "source": "ai-context/apexlang/templates/base-app-structure/scaffold-example/shared-components/authorizations.apx"
+    },
+    {
+      "path": "templates/base-app-structure/scaffold-example/shared-components/breadcrumbs.apx",
+      "source": "ai-context/apexlang/templates/base-app-structure/scaffold-example/shared-components/breadcrumbs.apx"
+    },
+    {
+      "path": "templates/base-app-structure/scaffold-example/shared-components/build-options.apx",
+      "source": "ai-context/apexlang/templates/base-app-structure/scaffold-example/shared-components/build-options.apx"
+    },
+    {
+      "path": "templates/base-app-structure/scaffold-example/shared-components/component-settings.apx",
+      "source": "ai-context/apexlang/templates/base-app-structure/scaffold-example/shared-components/component-settings.apx"
+    },
+    {
+      "path": "templates/base-app-structure/scaffold-example/shared-components/lists.apx",
+      "source": "ai-context/apexlang/templates/base-app-structure/scaffold-example/shared-components/lists.apx"
+    },
+    {
+      "path": "templates/base-app-structure/scaffold-example/shared-components/lovs.apx",
+      "source": "ai-context/apexlang/templates/base-app-structure/scaffold-example/shared-components/lovs.apx"
+    },
+    {
+      "path": "templates/base-app-structure/scaffold-example/shared-components/static-files.apx",
+      "source": "ai-context/apexlang/templates/base-app-structure/scaffold-example/shared-components/static-files.apx"
+    },
+    {
+      "path": "templates/base-app-structure/scaffold-example/shared-components/static-files/icons/app-icon-144-rounded.png",
+      "source": "ai-context/apexlang/templates/base-app-structure/scaffold-example/shared-components/static-files/icons/app-icon-144-rounded.png"
+    },
+    {
+      "path": "templates/base-app-structure/scaffold-example/shared-components/static-files/icons/app-icon-192.png",
+      "source": "ai-context/apexlang/templates/base-app-structure/scaffold-example/shared-components/static-files/icons/app-icon-192.png"
+    },
+    {
+      "path": "templates/base-app-structure/scaffold-example/shared-components/static-files/icons/app-icon-256-rounded.png",
+      "source": "ai-context/apexlang/templates/base-app-structure/scaffold-example/shared-components/static-files/icons/app-icon-256-rounded.png"
+    },
+    {
+      "path": "templates/base-app-structure/scaffold-example/shared-components/static-files/icons/app-icon-32.png",
+      "source": "ai-context/apexlang/templates/base-app-structure/scaffold-example/shared-components/static-files/icons/app-icon-32.png"
+    },
+    {
+      "path": "templates/base-app-structure/scaffold-example/shared-components/static-files/icons/app-icon-512.png",
+      "source": "ai-context/apexlang/templates/base-app-structure/scaffold-example/shared-components/static-files/icons/app-icon-512.png"
+    },
+    {
+      "path": "templates/base-app-structure/scaffold-example/shared-components/themes/universal-theme/theme.apx",
+      "source": "ai-context/apexlang/templates/base-app-structure/scaffold-example/shared-components/themes/universal-theme/theme.apx"
+    },
+    {
+      "path": "templates/base-app-structure/scaffold-example/supporting-objects/deinstall-script.sql",
+      "source": "ai-context/apexlang/templates/base-app-structure/scaffold-example/supporting-objects/deinstall-script.sql"
+    },
+    {
+      "path": "templates/base-app-structure/scaffold-example/supporting-objects/supporting-objects.apx",
+      "source": "ai-context/apexlang/templates/base-app-structure/scaffold-example/supporting-objects/supporting-objects.apx"
+    },
+    {
+      "path": "templates/business-logic/computations/computations.execute.md",
+      "source": "ai-context/apexlang/templates/business-logic/computations/computations.execute.md"
+    },
+    {
+      "path": "templates/business-logic/computations/computations.expression.md",
+      "source": "ai-context/apexlang/templates/business-logic/computations/computations.expression.md"
+    },
+    {
+      "path": "templates/business-logic/computations/computations.function-body.md",
+      "source": "ai-context/apexlang/templates/business-logic/computations/computations.function-body.md"
+    },
+    {
+      "path": "templates/business-logic/computations/computations.sql-multi.md",
+      "source": "ai-context/apexlang/templates/business-logic/computations/computations.sql-multi.md"
+    },
+    {
+      "path": "templates/business-logic/computations/computations.sql.md",
+      "source": "ai-context/apexlang/templates/business-logic/computations/computations.sql.md"
+    },
+    {
+      "path": "templates/business-logic/dynamic-actions/README.md",
+      "source": "ai-context/apexlang/templates/business-logic/dynamic-actions/README.md"
+    },
+    {
+      "path": "templates/business-logic/dynamic-actions/dynamic-actions._common.md",
+      "source": "ai-context/apexlang/templates/business-logic/dynamic-actions/dynamic-actions._common.md"
+    },
+    {
+      "path": "templates/business-logic/dynamic-actions/dynamic-actions._index.md",
+      "source": "ai-context/apexlang/templates/business-logic/dynamic-actions/dynamic-actions._index.md"
+    },
+    {
+      "path": "templates/business-logic/dynamic-actions/dynamic-actions.add-remove-class-item.md",
+      "source": "ai-context/apexlang/templates/business-logic/dynamic-actions/dynamic-actions.add-remove-class-item.md"
+    },
+    {
+      "path": "templates/business-logic/dynamic-actions/dynamic-actions.add-remove-class.md",
+      "source": "ai-context/apexlang/templates/business-logic/dynamic-actions/dynamic-actions.add-remove-class.md"
+    },
+    {
+      "path": "templates/business-logic/dynamic-actions/dynamic-actions.alert-confirm-cancel.md",
+      "source": "ai-context/apexlang/templates/business-logic/dynamic-actions/dynamic-actions.alert-confirm-cancel.md"
+    },
+    {
+      "path": "templates/business-logic/dynamic-actions/dynamic-actions.cancel-dialog.md",
+      "source": "ai-context/apexlang/templates/business-logic/dynamic-actions/dynamic-actions.cancel-dialog.md"
+    },
+    {
+      "path": "templates/business-logic/dynamic-actions/dynamic-actions.close-dialog.md",
+      "source": "ai-context/apexlang/templates/business-logic/dynamic-actions/dynamic-actions.close-dialog.md"
+    },
+    {
+      "path": "templates/business-logic/dynamic-actions/dynamic-actions.delete-with-notification.md",
+      "source": "ai-context/apexlang/templates/business-logic/dynamic-actions/dynamic-actions.delete-with-notification.md"
+    },
+    {
+      "path": "templates/business-logic/dynamic-actions/dynamic-actions.enable-disable-items.md",
+      "source": "ai-context/apexlang/templates/business-logic/dynamic-actions/dynamic-actions.enable-disable-items.md"
+    },
+    {
+      "path": "templates/business-logic/dynamic-actions/dynamic-actions.execute-server-side-code.md",
+      "source": "ai-context/apexlang/templates/business-logic/dynamic-actions/dynamic-actions.execute-server-side-code.md"
+    },
+    {
+      "path": "templates/business-logic/dynamic-actions/dynamic-actions.execution-debounce-throttle.md",
+      "source": "ai-context/apexlang/templates/business-logic/dynamic-actions/dynamic-actions.execution-debounce-throttle.md"
+    },
+    {
+      "path": "templates/business-logic/dynamic-actions/dynamic-actions.generate-text-ai.md",
+      "source": "ai-context/apexlang/templates/business-logic/dynamic-actions/dynamic-actions.generate-text-ai.md"
+    },
+    {
+      "path": "templates/business-logic/dynamic-actions/dynamic-actions.refresh-region-after-api.md",
+      "source": "ai-context/apexlang/templates/business-logic/dynamic-actions/dynamic-actions.refresh-region-after-api.md"
+    },
+    {
+      "path": "templates/business-logic/dynamic-actions/dynamic-actions.refresh-region-after-dialog.md",
+      "source": "ai-context/apexlang/templates/business-logic/dynamic-actions/dynamic-actions.refresh-region-after-dialog.md"
+    },
+    {
+      "path": "templates/business-logic/dynamic-actions/dynamic-actions.refresh-region-on-change.md",
+      "source": "ai-context/apexlang/templates/business-logic/dynamic-actions/dynamic-actions.refresh-region-on-change.md"
+    },
+    {
+      "path": "templates/business-logic/dynamic-actions/dynamic-actions.set-focus-on-ready.md",
+      "source": "ai-context/apexlang/templates/business-logic/dynamic-actions/dynamic-actions.set-focus-on-ready.md"
+    },
+    {
+      "path": "templates/business-logic/dynamic-actions/dynamic-actions.set-value-javascript-expression.md",
+      "source": "ai-context/apexlang/templates/business-logic/dynamic-actions/dynamic-actions.set-value-javascript-expression.md"
+    },
+    {
+      "path": "templates/business-logic/dynamic-actions/dynamic-actions.set-value-plsql-function.md",
+      "source": "ai-context/apexlang/templates/business-logic/dynamic-actions/dynamic-actions.set-value-plsql-function.md"
+    },
+    {
+      "path": "templates/business-logic/dynamic-actions/dynamic-actions.set-value-sql.md",
+      "source": "ai-context/apexlang/templates/business-logic/dynamic-actions/dynamic-actions.set-value-sql.md"
+    },
+    {
+      "path": "templates/business-logic/dynamic-actions/dynamic-actions.set-value-static.md",
+      "source": "ai-context/apexlang/templates/business-logic/dynamic-actions/dynamic-actions.set-value-static.md"
+    },
+    {
+      "path": "templates/business-logic/dynamic-actions/dynamic-actions.show-ai-assistant.md",
+      "source": "ai-context/apexlang/templates/business-logic/dynamic-actions/dynamic-actions.show-ai-assistant.md"
+    },
+    {
+      "path": "templates/business-logic/dynamic-actions/dynamic-actions.show-error-message.md",
+      "source": "ai-context/apexlang/templates/business-logic/dynamic-actions/dynamic-actions.show-error-message.md"
+    },
+    {
+      "path": "templates/business-logic/dynamic-actions/dynamic-actions.show-hide-items.md",
+      "source": "ai-context/apexlang/templates/business-logic/dynamic-actions/dynamic-actions.show-hide-items.md"
+    },
+    {
+      "path": "templates/business-logic/dynamic-actions/dynamic-actions.show-success-message.md",
+      "source": "ai-context/apexlang/templates/business-logic/dynamic-actions/dynamic-actions.show-success-message.md"
+    },
+    {
+      "path": "templates/business-logic/dynamic-actions/dynamic-actions.submit-page.md",
+      "source": "ai-context/apexlang/templates/business-logic/dynamic-actions/dynamic-actions.submit-page.md"
+    },
+    {
+      "path": "templates/business-logic/dynamic-actions/dynamic-actions.view-document-inline.md",
+      "source": "ai-context/apexlang/templates/business-logic/dynamic-actions/dynamic-actions.view-document-inline.md"
+    },
+    {
+      "path": "templates/business-logic/processes/processes.invoke-api.md",
+      "source": "ai-context/apexlang/templates/business-logic/processes/processes.invoke-api.md"
+    },
+    {
+      "path": "templates/business-logic/validations/README.md",
+      "source": "ai-context/apexlang/templates/business-logic/validations/README.md"
+    },
+    {
+      "path": "templates/business-logic/validations/validations._common.md",
+      "source": "ai-context/apexlang/templates/business-logic/validations/validations._common.md"
+    },
+    {
+      "path": "templates/business-logic/validations/validations._index.md",
+      "source": "ai-context/apexlang/templates/business-logic/validations/validations._index.md"
+    },
+    {
+      "path": "templates/business-logic/validations/validations.expression.md",
+      "source": "ai-context/apexlang/templates/business-logic/validations/validations.expression.md"
+    },
+    {
+      "path": "templates/business-logic/validations/validations.function-body.md",
+      "source": "ai-context/apexlang/templates/business-logic/validations/validations.function-body.md"
+    },
+    {
+      "path": "templates/business-logic/validations/validations.item.md",
+      "source": "ai-context/apexlang/templates/business-logic/validations/validations.item.md"
+    },
+    {
+      "path": "templates/business-logic/validations/validations.plsql-error.md",
+      "source": "ai-context/apexlang/templates/business-logic/validations/validations.plsql-error.md"
+    },
+    {
+      "path": "templates/business-logic/validations/validations.sql.md",
+      "source": "ai-context/apexlang/templates/business-logic/validations/validations.sql.md"
+    },
+    {
+      "path": "templates/buttons/buttons._common.md",
+      "source": "ai-context/apexlang/templates/buttons/buttons._common.md"
+    },
+    {
+      "path": "templates/buttons/buttons._index.md",
+      "source": "ai-context/apexlang/templates/buttons/buttons._index.md"
+    },
+    {
+      "path": "templates/buttons/buttons.appearance-icon.md",
+      "source": "ai-context/apexlang/templates/buttons/buttons.appearance-icon.md"
+    },
+    {
+      "path": "templates/buttons/buttons.confirmation.md",
+      "source": "ai-context/apexlang/templates/buttons/buttons.confirmation.md"
+    },
+    {
+      "path": "templates/buttons/buttons.defined-by-da.md",
+      "source": "ai-context/apexlang/templates/buttons/buttons.defined-by-da.md"
+    },
+    {
+      "path": "templates/buttons/buttons.menu.md",
+      "source": "ai-context/apexlang/templates/buttons/buttons.menu.md"
+    },
+    {
+      "path": "templates/buttons/buttons.redirect-other-app.md",
+      "source": "ai-context/apexlang/templates/buttons/buttons.redirect-other-app.md"
+    },
+    {
+      "path": "templates/buttons/buttons.redirect-this-app.md",
+      "source": "ai-context/apexlang/templates/buttons/buttons.redirect-this-app.md"
+    },
+    {
+      "path": "templates/buttons/buttons.server-side-condition.md",
+      "source": "ai-context/apexlang/templates/buttons/buttons.server-side-condition.md"
+    },
+    {
+      "path": "templates/buttons/buttons.submit.md",
+      "source": "ai-context/apexlang/templates/buttons/buttons.submit.md"
+    },
+    {
+      "path": "templates/buttons/buttons.trigger-action.md",
+      "source": "ai-context/apexlang/templates/buttons/buttons.trigger-action.md"
+    },
+    {
+      "path": "templates/items/checkbox/checkbox._index.md",
+      "source": "ai-context/apexlang/templates/items/checkbox/checkbox._index.md"
+    },
+    {
+      "path": "templates/items/color-picker/standard.md",
+      "source": "ai-context/apexlang/templates/items/color-picker/standard.md"
+    },
+    {
+      "path": "templates/items/combobox/combobox._index.md",
+      "source": "ai-context/apexlang/templates/items/combobox/combobox._index.md"
+    },
+    {
+      "path": "templates/items/date-picker/date-picker._index.md",
+      "source": "ai-context/apexlang/templates/items/date-picker/date-picker._index.md"
+    },
+    {
+      "path": "templates/items/display-only/standard.md",
+      "source": "ai-context/apexlang/templates/items/display-only/standard.md"
+    },
+    {
+      "path": "templates/items/file-upload/file-upload._index.md",
+      "source": "ai-context/apexlang/templates/items/file-upload/file-upload._index.md"
+    },
+    {
+      "path": "templates/items/hidden-item/hidden-item._common.md",
+      "source": "ai-context/apexlang/templates/items/hidden-item/hidden-item._common.md"
+    },
+    {
+      "path": "templates/items/hidden-item/hidden-item._index.md",
+      "source": "ai-context/apexlang/templates/items/hidden-item/hidden-item._index.md"
+    },
+    {
+      "path": "templates/items/hidden-item/hidden-item.explicit-defaults.md",
+      "source": "ai-context/apexlang/templates/items/hidden-item/hidden-item.explicit-defaults.md"
+    },
+    {
+      "path": "templates/items/hidden-item/hidden-item.minimal.md",
+      "source": "ai-context/apexlang/templates/items/hidden-item/hidden-item.minimal.md"
+    },
+    {
+      "path": "templates/items/number-field/number-field._index.md",
+      "source": "ai-context/apexlang/templates/items/number-field/number-field._index.md"
+    },
+    {
+      "path": "templates/items/radio-group/radio-group._index.md",
+      "source": "ai-context/apexlang/templates/items/radio-group/radio-group._index.md"
+    },
+    {
+      "path": "templates/items/rich-text-editor/rich-text-editor._index.md",
+      "source": "ai-context/apexlang/templates/items/rich-text-editor/rich-text-editor._index.md"
+    },
+    {
+      "path": "templates/items/select-list/select-list._common.md",
+      "source": "ai-context/apexlang/templates/items/select-list/select-list._common.md"
+    },
+    {
+      "path": "templates/items/select-list/select-list._index.md",
+      "source": "ai-context/apexlang/templates/items/select-list/select-list._index.md"
+    },
+    {
+      "path": "templates/items/select-list/select-list.compact-template.md",
+      "source": "ai-context/apexlang/templates/items/select-list/select-list.compact-template.md"
+    },
+    {
+      "path": "templates/items/select-list/select-list.explicit-defaults.md",
+      "source": "ai-context/apexlang/templates/items/select-list/select-list.explicit-defaults.md"
+    },
+    {
+      "path": "templates/items/select-list/select-list.lov-display-null.md",
+      "source": "ai-context/apexlang/templates/items/select-list/select-list.lov-display-null.md"
+    },
+    {
+      "path": "templates/items/select-list/select-list.lov-shared.md",
+      "source": "ai-context/apexlang/templates/items/select-list/select-list.lov-shared.md"
+    },
+    {
+      "path": "templates/items/select-list/select-list.minimal.md",
+      "source": "ai-context/apexlang/templates/items/select-list/select-list.minimal.md"
+    },
+    {
+      "path": "templates/items/select-many/standard.md",
+      "source": "ai-context/apexlang/templates/items/select-many/standard.md"
+    },
+    {
+      "path": "templates/items/select-one/standard.md",
+      "source": "ai-context/apexlang/templates/items/select-one/standard.md"
+    },
+    {
+      "path": "templates/items/shuttle/shuttle._index.md",
+      "source": "ai-context/apexlang/templates/items/shuttle/shuttle._index.md"
+    },
+    {
+      "path": "templates/items/star-rating/standard.md",
+      "source": "ai-context/apexlang/templates/items/star-rating/standard.md"
+    },
+    {
+      "path": "templates/items/switch/switch._index.md",
+      "source": "ai-context/apexlang/templates/items/switch/switch._index.md"
+    },
+    {
+      "path": "templates/items/text-area/text-area._index.md",
+      "source": "ai-context/apexlang/templates/items/text-area/text-area._index.md"
+    },
+    {
+      "path": "templates/items/text-autocomplete/text-autocomplete._index.md",
+      "source": "ai-context/apexlang/templates/items/text-autocomplete/text-autocomplete._index.md"
+    },
+    {
+      "path": "templates/items/text-field/text-field._common.md",
+      "source": "ai-context/apexlang/templates/items/text-field/text-field._common.md"
+    },
+    {
+      "path": "templates/items/text-field/text-field._index.md",
+      "source": "ai-context/apexlang/templates/items/text-field/text-field._index.md"
+    },
+    {
+      "path": "templates/items/text-field/text-field.compact-template.md",
+      "source": "ai-context/apexlang/templates/items/text-field/text-field.compact-template.md"
+    },
+    {
+      "path": "templates/items/text-field/text-field.explicit-defaults.md",
+      "source": "ai-context/apexlang/templates/items/text-field/text-field.explicit-defaults.md"
+    },
+    {
+      "path": "templates/items/text-field/text-field.minimal.md",
+      "source": "ai-context/apexlang/templates/items/text-field/text-field.minimal.md"
+    },
+    {
+      "path": "templates/items/text-field/text-field.required-length.md",
+      "source": "ai-context/apexlang/templates/items/text-field/text-field.required-length.md"
+    },
+    {
+      "path": "templates/items/text-field/text-field.width-placeholder.md",
+      "source": "ai-context/apexlang/templates/items/text-field/text-field.width-placeholder.md"
+    },
+    {
+      "path": "templates/page-examples/blank-page/blank-page._index.md",
+      "source": "ai-context/apexlang/templates/page-examples/blank-page/blank-page._index.md"
+    },
+    {
+      "path": "templates/page-examples/calendar-page/calendar-page._index.md",
+      "source": "ai-context/apexlang/templates/page-examples/calendar-page/calendar-page._index.md"
+    },
+    {
+      "path": "templates/page-examples/classic-report-page/classic-report-page._index.md",
+      "source": "ai-context/apexlang/templates/page-examples/classic-report-page/classic-report-page._index.md"
+    },
+    {
+      "path": "templates/page-examples/dashboard-page/dashboard-page._index.md",
+      "source": "ai-context/apexlang/templates/page-examples/dashboard-page/dashboard-page._index.md"
+    },
+    {
+      "path": "templates/page-examples/faceted-search/faceted-search._index.md",
+      "source": "ai-context/apexlang/templates/page-examples/faceted-search/faceted-search._index.md"
+    },
+    {
+      "path": "templates/page-examples/form-page/form-page._index.md",
+      "source": "ai-context/apexlang/templates/page-examples/form-page/form-page._index.md"
+    },
+    {
+      "path": "templates/page-examples/interactive-grid/interactive-grid._index.md",
+      "source": "ai-context/apexlang/templates/page-examples/interactive-grid/interactive-grid._index.md"
+    },
+    {
+      "path": "templates/page-examples/interactive-report-page/interactive-report-page._index.md",
+      "source": "ai-context/apexlang/templates/page-examples/interactive-report-page/interactive-report-page._index.md"
+    },
+    {
+      "path": "templates/page-examples/map-page/map-page._index.md",
+      "source": "ai-context/apexlang/templates/page-examples/map-page/map-page._index.md"
+    },
+    {
+      "path": "templates/region-components/breadcrumb/breadcrumb._common.md",
+      "source": "ai-context/apexlang/templates/region-components/breadcrumb/breadcrumb._common.md"
+    },
+    {
+      "path": "templates/region-components/breadcrumb/breadcrumb.page-header-nav.md",
+      "source": "ai-context/apexlang/templates/region-components/breadcrumb/breadcrumb.page-header-nav.md"
+    },
+    {
+      "path": "templates/region-components/breadcrumb/breadcrumb.standard.md",
+      "source": "ai-context/apexlang/templates/region-components/breadcrumb/breadcrumb.standard.md"
+    },
+    {
+      "path": "templates/region-components/calendar/calendar._common.md",
+      "source": "ai-context/apexlang/templates/region-components/calendar/calendar._common.md"
+    },
+    {
+      "path": "templates/region-components/cards/cards._common.md",
+      "source": "ai-context/apexlang/templates/region-components/cards/cards._common.md"
+    },
+    {
+      "path": "templates/region-components/cards/cards.standard.md",
+      "source": "ai-context/apexlang/templates/region-components/cards/cards.standard.md"
+    },
+    {
+      "path": "templates/region-components/chart/chart._common.md",
+      "source": "ai-context/apexlang/templates/region-components/chart/chart._common.md"
+    },
+    {
+      "path": "templates/region-components/chart/chart.area-custom-legend.md",
+      "source": "ai-context/apexlang/templates/region-components/chart/chart.area-custom-legend.md"
+    },
+    {
+      "path": "templates/region-components/chart/chart.area.md",
+      "source": "ai-context/apexlang/templates/region-components/chart/chart.area.md"
+    },
+    {
+      "path": "templates/region-components/chart/chart.bar.md",
+      "source": "ai-context/apexlang/templates/region-components/chart/chart.bar.md"
+    },
+    {
+      "path": "templates/region-components/chart/chart.bubble.md",
+      "source": "ai-context/apexlang/templates/region-components/chart/chart.bubble.md"
+    },
+    {
+      "path": "templates/region-components/chart/chart.dashboard-combination.md",
+      "source": "ai-context/apexlang/templates/region-components/chart/chart.dashboard-combination.md"
+    },
+    {
+      "path": "templates/region-components/chart/chart.gantt.md",
+      "source": "ai-context/apexlang/templates/region-components/chart/chart.gantt.md"
+    },
+    {
+      "path": "templates/region-components/chart/chart.line-with-area.md",
+      "source": "ai-context/apexlang/templates/region-components/chart/chart.line-with-area.md"
+    },
+    {
+      "path": "templates/region-components/chart/chart.line.md",
+      "source": "ai-context/apexlang/templates/region-components/chart/chart.line.md"
+    },
+    {
+      "path": "templates/region-components/chart/chart.pie.md",
+      "source": "ai-context/apexlang/templates/region-components/chart/chart.pie.md"
+    },
+    {
+      "path": "templates/region-components/chart/chart.scatter.md",
+      "source": "ai-context/apexlang/templates/region-components/chart/chart.scatter.md"
+    },
+    {
+      "path": "templates/region-components/chart/chart.status-meter-gauge.md",
+      "source": "ai-context/apexlang/templates/region-components/chart/chart.status-meter-gauge.md"
+    },
+    {
+      "path": "templates/region-components/chart/chart.stock.md",
+      "source": "ai-context/apexlang/templates/region-components/chart/chart.stock.md"
+    },
+    {
+      "path": "templates/region-components/chart/features/chart.feature-3d-effect.md",
+      "source": "ai-context/apexlang/templates/region-components/chart/features/chart.feature-3d-effect.md"
+    },
+    {
+      "path": "templates/region-components/chart/features/chart.feature-chart-links.md",
+      "source": "ai-context/apexlang/templates/region-components/chart/features/chart.feature-chart-links.md"
+    },
+    {
+      "path": "templates/region-components/chart/features/chart.feature-custom-tooltip.md",
+      "source": "ai-context/apexlang/templates/region-components/chart/features/chart.feature-custom-tooltip.md"
+    },
+    {
+      "path": "templates/region-components/chart/features/chart.feature-data-densification.md",
+      "source": "ai-context/apexlang/templates/region-components/chart/features/chart.feature-data-densification.md"
+    },
+    {
+      "path": "templates/region-components/chart/features/chart.feature-declarative-font.md",
+      "source": "ai-context/apexlang/templates/region-components/chart/features/chart.feature-declarative-font.md"
+    },
+    {
+      "path": "templates/region-components/chart/features/chart.feature-series-color.md",
+      "source": "ai-context/apexlang/templates/region-components/chart/features/chart.feature-series-color.md"
+    },
+    {
+      "path": "templates/region-components/chart/features/chart.feature-zoom-scroll.md",
+      "source": "ai-context/apexlang/templates/region-components/chart/features/chart.feature-zoom-scroll.md"
+    },
+    {
+      "path": "templates/region-components/classic-report/classic-report._common.md",
+      "source": "ai-context/apexlang/templates/region-components/classic-report/classic-report._common.md"
+    },
+    {
+      "path": "templates/region-components/collapsible-region/collapsible-region._common.md",
+      "source": "ai-context/apexlang/templates/region-components/collapsible-region/collapsible-region._common.md"
+    },
+    {
+      "path": "templates/region-components/collapsible-region/collapsible-region.standard.md",
+      "source": "ai-context/apexlang/templates/region-components/collapsible-region/collapsible-region.standard.md"
+    },
+    {
+      "path": "templates/region-components/dynamic-content/dynamic-content._common.md",
+      "source": "ai-context/apexlang/templates/region-components/dynamic-content/dynamic-content._common.md"
+    },
+    {
+      "path": "templates/region-components/dynamic-content/dynamic-content.standard.md",
+      "source": "ai-context/apexlang/templates/region-components/dynamic-content/dynamic-content.standard.md"
+    },
+    {
+      "path": "templates/region-components/faceted-search/faceted-search._common.md",
+      "source": "ai-context/apexlang/templates/region-components/faceted-search/faceted-search._common.md"
+    },
+    {
+      "path": "templates/region-components/faceted-search/faceted-search.standard.md",
+      "source": "ai-context/apexlang/templates/region-components/faceted-search/faceted-search.standard.md"
+    },
+    {
+      "path": "templates/region-components/form/README.md",
+      "source": "ai-context/apexlang/templates/region-components/form/README.md"
+    },
+    {
+      "path": "templates/region-components/form/form._common.md",
+      "source": "ai-context/apexlang/templates/region-components/form/form._common.md"
+    },
+    {
+      "path": "templates/region-components/form/form._index.md",
+      "source": "ai-context/apexlang/templates/region-components/form/form._index.md"
+    },
+    {
+      "path": "templates/region-components/form/form._items._common.md",
+      "source": "ai-context/apexlang/templates/region-components/form/form._items._common.md"
+    },
+    {
+      "path": "templates/region-components/form/form._processes._common.md",
+      "source": "ai-context/apexlang/templates/region-components/form/form._processes._common.md"
+    },
+    {
+      "path": "templates/region-components/form/form._template_options.md",
+      "source": "ai-context/apexlang/templates/region-components/form/form._template_options.md"
+    },
+    {
+      "path": "templates/region-components/form/form.basic.md",
+      "source": "ai-context/apexlang/templates/region-components/form/form.basic.md"
+    },
+    {
+      "path": "templates/region-components/form/form.dialog-buttons.md",
+      "source": "ai-context/apexlang/templates/region-components/form/form.dialog-buttons.md"
+    },
+    {
+      "path": "templates/region-components/form/form.rest-source.md",
+      "source": "ai-context/apexlang/templates/region-components/form/form.rest-source.md"
+    },
+    {
+      "path": "templates/region-components/help-text/help-text.standard.md",
+      "source": "ai-context/apexlang/templates/region-components/help-text/help-text.standard.md"
+    },
+    {
+      "path": "templates/region-components/interactive-grid/interactive-grid._columns._common.md",
+      "source": "ai-context/apexlang/templates/region-components/interactive-grid/interactive-grid._columns._common.md"
+    },
+    {
+      "path": "templates/region-components/interactive-grid/interactive-grid._common.md",
+      "source": "ai-context/apexlang/templates/region-components/interactive-grid/interactive-grid._common.md"
+    },
+    {
+      "path": "templates/region-components/interactive-grid/interactive-grid._saved-report._common.md",
+      "source": "ai-context/apexlang/templates/region-components/interactive-grid/interactive-grid._saved-report._common.md"
+    },
+    {
+      "path": "templates/region-components/interactive-grid/interactive-grid.region.md",
+      "source": "ai-context/apexlang/templates/region-components/interactive-grid/interactive-grid.region.md"
+    },
+    {
+      "path": "templates/region-components/interactive-grid/interactive-grid.standard.md",
+      "source": "ai-context/apexlang/templates/region-components/interactive-grid/interactive-grid.standard.md"
+    },
+    {
+      "path": "templates/region-components/interactive-report/README.md",
+      "source": "ai-context/apexlang/templates/region-components/interactive-report/README.md"
+    },
+    {
+      "path": "templates/region-components/interactive-report/interactive-report._columns._common.md",
+      "source": "ai-context/apexlang/templates/region-components/interactive-report/interactive-report._columns._common.md"
+    },
+    {
+      "path": "templates/region-components/interactive-report/interactive-report._columns.format-template.md",
+      "source": "ai-context/apexlang/templates/region-components/interactive-report/interactive-report._columns.format-template.md"
+    },
+    {
+      "path": "templates/region-components/interactive-report/interactive-report._common.md",
+      "source": "ai-context/apexlang/templates/region-components/interactive-report/interactive-report._common.md"
+    },
+    {
+      "path": "templates/region-components/interactive-report/interactive-report._index.md",
+      "source": "ai-context/apexlang/templates/region-components/interactive-report/interactive-report._index.md"
+    },
+    {
+      "path": "templates/region-components/interactive-report/interactive-report._template_options.md",
+      "source": "ai-context/apexlang/templates/region-components/interactive-report/interactive-report._template_options.md"
+    },
+    {
+      "path": "templates/region-components/interactive-report/interactive-report.nl2ir.md",
+      "source": "ai-context/apexlang/templates/region-components/interactive-report/interactive-report.nl2ir.md"
+    },
+    {
+      "path": "templates/region-components/interactive-report/interactive-report.page-header-actions.md",
+      "source": "ai-context/apexlang/templates/region-components/interactive-report/interactive-report.page-header-actions.md"
+    },
+    {
+      "path": "templates/region-components/interactive-report/interactive-report.rest-data-source-parameter.md",
+      "source": "ai-context/apexlang/templates/region-components/interactive-report/interactive-report.rest-data-source-parameter.md"
+    },
+    {
+      "path": "templates/region-components/interactive-report/interactive-report.rest-data-source.md",
+      "source": "ai-context/apexlang/templates/region-components/interactive-report/interactive-report.rest-data-source.md"
+    },
+    {
+      "path": "templates/region-components/interactive-report/interactive-report.secondary.md",
+      "source": "ai-context/apexlang/templates/region-components/interactive-report/interactive-report.secondary.md"
+    },
+    {
+      "path": "templates/region-components/interactive-report/interactive-report.standard.md",
+      "source": "ai-context/apexlang/templates/region-components/interactive-report/interactive-report.standard.md"
+    },
+    {
+      "path": "templates/region-components/list/list._common.md",
+      "source": "ai-context/apexlang/templates/region-components/list/list._common.md"
+    },
+    {
+      "path": "templates/region-components/list/list._index.md",
+      "source": "ai-context/apexlang/templates/region-components/list/list._index.md"
+    },
+    {
+      "path": "templates/region-components/map/map._common.md",
+      "source": "ai-context/apexlang/templates/region-components/map/map._common.md"
+    },
+    {
+      "path": "templates/region-components/map/map.layer.points.function-body.md",
+      "source": "ai-context/apexlang/templates/region-components/map/map.layer.points.function-body.md"
+    },
+    {
+      "path": "templates/region-components/map/map.layer.points.sql-query.md",
+      "source": "ai-context/apexlang/templates/region-components/map/map.layer.points.sql-query.md"
+    },
+    {
+      "path": "templates/region-components/region-display-selector/region-display-selector._common.md",
+      "source": "ai-context/apexlang/templates/region-components/region-display-selector/region-display-selector._common.md"
+    },
+    {
+      "path": "templates/region-components/region-display-selector/region-display-selector.standard.md",
+      "source": "ai-context/apexlang/templates/region-components/region-display-selector/region-display-selector.standard.md"
+    },
+    {
+      "path": "templates/region-components/search-config/search-config._common.md",
+      "source": "ai-context/apexlang/templates/region-components/search-config/search-config._common.md"
+    },
+    {
+      "path": "templates/region-components/search-config/search-config.standard.md",
+      "source": "ai-context/apexlang/templates/region-components/search-config/search-config.standard.md"
+    },
+    {
+      "path": "templates/region-components/smart-filter-search/smart-filter-search._common.md",
+      "source": "ai-context/apexlang/templates/region-components/smart-filter-search/smart-filter-search._common.md"
+    },
+    {
+      "path": "templates/region-components/smart-filter-search/smart-filter-search.standard.md",
+      "source": "ai-context/apexlang/templates/region-components/smart-filter-search/smart-filter-search.standard.md"
+    },
+    {
+      "path": "templates/region-components/static-content/static-content._common.md",
+      "source": "ai-context/apexlang/templates/region-components/static-content/static-content._common.md"
+    },
+    {
+      "path": "templates/region-components/static-content/static-content.accordion.md",
+      "source": "ai-context/apexlang/templates/region-components/static-content/static-content.accordion.md"
+    },
+    {
+      "path": "templates/region-components/static-content/static-content.blank-with-attributes.md",
+      "source": "ai-context/apexlang/templates/region-components/static-content/static-content.blank-with-attributes.md"
+    },
+    {
+      "path": "templates/region-components/static-content/static-content.buttons.md",
+      "source": "ai-context/apexlang/templates/region-components/static-content/static-content.buttons.md"
+    },
+    {
+      "path": "templates/region-components/static-content/static-content.cards.md",
+      "source": "ai-context/apexlang/templates/region-components/static-content/static-content.cards.md"
+    },
+    {
+      "path": "templates/region-components/static-content/static-content.collapsible.md",
+      "source": "ai-context/apexlang/templates/region-components/static-content/static-content.collapsible.md"
+    },
+    {
+      "path": "templates/region-components/static-content/static-content.collection-toolbar.md",
+      "source": "ai-context/apexlang/templates/region-components/static-content/static-content.collection-toolbar.md"
+    },
+    {
+      "path": "templates/region-components/static-content/static-content.dividers.md",
+      "source": "ai-context/apexlang/templates/region-components/static-content/static-content.dividers.md"
+    },
+    {
+      "path": "templates/region-components/static-content/static-content.empty-state.md",
+      "source": "ai-context/apexlang/templates/region-components/static-content/static-content.empty-state.md"
+    },
+    {
+      "path": "templates/shared-components/build-options.md",
+      "source": "ai-context/apexlang/templates/shared-components/build-options.md"
+    },
+    {
+      "path": "templates/shared-components/lovs/lovs.dynamic.query.md",
+      "source": "ai-context/apexlang/templates/shared-components/lovs/lovs.dynamic.query.md"
+    },
+    {
+      "path": "templates/shared-components/translations/translations._common.md",
+      "source": "ai-context/apexlang/templates/shared-components/translations/translations._common.md"
+    },
+    {
+      "path": "templates/shared-components/translations/translations._index.md",
+      "source": "ai-context/apexlang/templates/shared-components/translations/translations._index.md"
+    },
+    {
+      "path": "templates/shared-components/translations/translations.text-messages._common.md",
+      "source": "ai-context/apexlang/templates/shared-components/translations/translations.text-messages._common.md"
+    },
+    {
+      "path": "templates/shared-components/translations/translations.text-messages.consumption.example.md",
+      "source": "ai-context/apexlang/templates/shared-components/translations/translations.text-messages.consumption.example.md"
+    },
+    {
+      "path": "templates/shared-components/translations/translations.text-messages.permutations.example.md",
+      "source": "ai-context/apexlang/templates/shared-components/translations/translations.text-messages.permutations.example.md"
+    },
+    {
+      "path": "templates/template-components/content-row/README.md",
+      "source": "ai-context/apexlang/templates/template-components/content-row/README.md"
+    },
+    {
+      "path": "templates/template-components/content-row/content-row._common.md",
+      "source": "ai-context/apexlang/templates/template-components/content-row/content-row._common.md"
+    },
+    {
+      "path": "templates/template-components/content-row/content-row._index.md",
+      "source": "ai-context/apexlang/templates/template-components/content-row/content-row._index.md"
+    },
+    {
+      "path": "templates/template-components/content-row/content-row._template_options.md",
+      "source": "ai-context/apexlang/templates/template-components/content-row/content-row._template_options.md"
+    },
+    {
+      "path": "templates/template-components/content-row/content-row.partial-minimal.md",
+      "source": "ai-context/apexlang/templates/template-components/content-row/content-row.partial-minimal.md"
+    },
+    {
+      "path": "templates/template-components/content-row/content-row.partial-rich-content.md",
+      "source": "ai-context/apexlang/templates/template-components/content-row/content-row.partial-rich-content.md"
+    },
+    {
+      "path": "templates/template-components/content-row/content-row.report-appearance-variants.md",
+      "source": "ai-context/apexlang/templates/template-components/content-row/content-row.report-appearance-variants.md"
+    },
+    {
+      "path": "templates/template-components/content-row/content-row.report-avatar-badge.md",
+      "source": "ai-context/apexlang/templates/template-components/content-row/content-row.report-avatar-badge.md"
+    },
+    {
+      "path": "templates/template-components/content-row/content-row.report-explicit-defaults.md",
+      "source": "ai-context/apexlang/templates/template-components/content-row/content-row.report-explicit-defaults.md"
+    },
+    {
+      "path": "templates/template-components/content-row/content-row.report-grouping-selection.md",
+      "source": "ai-context/apexlang/templates/template-components/content-row/content-row.report-grouping-selection.md"
+    },
+    {
+      "path": "templates/template-components/content-row/content-row.report-link-positions.md",
+      "source": "ai-context/apexlang/templates/template-components/content-row/content-row.report-link-positions.md"
+    },
+    {
+      "path": "templates/template-components/content-row/content-row.report-master-detail-full-row-link.md",
+      "source": "ai-context/apexlang/templates/template-components/content-row/content-row.report-master-detail-full-row-link.md"
+    },
+    {
+      "path": "templates/template-components/content-row/content-row.report-minimal.md",
+      "source": "ai-context/apexlang/templates/template-components/content-row/content-row.report-minimal.md"
+    },
+    {
+      "path": "templates/template-components/content-row/content-row.report-primary-actions-menu.md",
+      "source": "ai-context/apexlang/templates/template-components/content-row/content-row.report-primary-actions-menu.md"
+    },
+    {
+      "path": "templates/template-components/content-row/manifest.json",
+      "source": "ai-context/apexlang/templates/template-components/content-row/manifest.json"
+    },
+    {
+      "path": "templates/template-components/metric-card/metric-card._common.md",
+      "source": "ai-context/apexlang/templates/template-components/metric-card/metric-card._common.md"
+    },
+    {
+      "path": "templates/template-components/metric-card/metric-card._index.md",
+      "source": "ai-context/apexlang/templates/template-components/metric-card/metric-card._index.md"
+    },
+    {
+      "path": "templates/template-components/template-component-profiles.json",
+      "source": "ai-context/apexlang/templates/template-components/template-component-profiles.json"
+    },
+    {
+      "path": "tools/apexctl.mjs",
+      "source": null
+    },
+    {
+      "path": "tools/compiler-truth-audit.mjs",
+      "source": null
+    },
+    {
+      "path": "tools/query-valid-props-normalize.mjs",
+      "source": null
+    },
+    {
+      "path": "tools/query-valid-props-runtime.mjs",
+      "source": null
+    },
+    {
+      "path": "tools/query-valid-props-template-components.mjs",
+      "source": null
+    },
+    {
+      "path": "tools/query-valid-props.mjs",
+      "source": null
+    }
+  ]
+}
