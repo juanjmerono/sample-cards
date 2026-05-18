@@ -8,6 +8,7 @@
     ];
 
     var sortableInstances = [];
+    var refreshCounter = { pending: 0, total: 0 };
 
     function wrapRegions() {
         if ($('#kanban-board-wrap').length) return;
@@ -113,14 +114,22 @@
                     onEnd: function(evt) {
                         var $draggedItem = $(evt.item);
                         var taskId = $draggedItem.attr('data-task-id');
-                        var newRegionEl = evt.to.closest('[id^="region-"]');
+                        var newRegionEl = null;
+                        var $to = $(evt.to);
+                        var $parentRegion = $to.closest('[id^="region-"]');
+                        if ($parentRegion.length) {
+                            newRegionEl = $parentRegion[0];
+                        }
                         if (!newRegionEl) {
-                            newRegionEl = $(evt.to).closest('[id^="region-"]')[0];
+                            var $parentRegion2 = $draggedItem.closest('[id^="region-"]');
+                            if ($parentRegion2.length) {
+                                newRegionEl = $parentRegion2[0];
+                            }
                         }
                         var newRegionId = newRegionEl ? newRegionEl.id : null;
                         var newStatus = null;
                         config.forEach(function(cfg) {
-                            if (cfg.regionId === newRegionId) newStatus = cfg.status;
+                            if (newRegionId.startsWith(cfg.regionId)) newStatus = cfg.status;
                         });
                         var newPosition = evt.newIndex;
 
@@ -129,9 +138,26 @@
                             return;
                         }
 
+                        if (!newStatus) {
+                            console.error('Kanban: Could not determine new status. newRegionId:', newRegionId, 'evt.to:', evt.to.tagName, 'evt.to.id:', evt.to.id);
+                            return;
+                        }
+
                         if (evt.from === evt.to) {
                             return;
                         }
+
+                        var oldRegionEl = null;
+                        var $from = $(evt.from);
+                        var $parentFrom = $from.closest('[id^="region-"]');
+                        if ($parentFrom.length) {
+                            oldRegionEl = $parentFrom[0];
+                        }
+                        var oldRegionId = oldRegionEl ? oldRegionEl.id : null;
+                        var oldStatus = null;
+                        config.forEach(function(cfg) {
+                            if (oldRegionId && oldRegionId.startsWith(cfg.regionId)) oldStatus = cfg.status;
+                        });
 
                         apex.server.process(
                             'UPDATE_TASK_STATUS',
@@ -142,6 +168,23 @@
                             },
                             {
                                 success: function() {
+                                    var oldConfig = null;
+                                    var newConfig = null;
+                                    config.forEach(function(cfg) {
+                                        if (oldStatus && cfg.status === oldStatus) oldConfig = cfg;
+                                        if (cfg.status === newStatus) newConfig = cfg;
+                                    });
+                                    if (oldConfig) {
+                                        var $oldRegion = $('#' + oldConfig.regionId);
+                                        $('#' + oldConfig.countId).text('(' + getCardsItems($oldRegion).length + ')');
+                                    }
+                                    if (newConfig) {
+                                        var $newRegion = $('#' + newConfig.regionId);
+                                        $('#' + newConfig.countId).text('(' + getCardsItems($newRegion).length + ')');
+                                    }
+
+                                    refreshCounter.pending = 0;
+                                    refreshCounter.total = 3;
                                     apex.region('region-todo').refresh();
                                     apex.region('region-in-progress').refresh();
                                     apex.region('region-done').refresh();
@@ -166,13 +209,18 @@
     }
 
     function reinitAfterRefresh() {
-        setTimeout(function() {
-            wrapRegions();
-            injectHeaders();
-            addTaskIdAttrs();
-            updateCounts();
-            initSortable();
-        }, 150);
+        refreshCounter.pending++;
+        if (refreshCounter.pending >= refreshCounter.total && refreshCounter.total > 0) {
+            refreshCounter.pending = 0;
+            refreshCounter.total = 0;
+            setTimeout(function() {
+                wrapRegions();
+                injectHeaders();
+                addTaskIdAttrs();
+                updateCounts();
+                initSortable();
+            }, 150);
+        }
     }
 
     window.KanbanBoard = {
@@ -187,8 +235,12 @@
 
             $(document).off('apexafterrefresh.kanban').on('apexafterrefresh.kanban', function(e) {
                 var regionIds = ['region-todo', 'region-in-progress', 'region-done'];
-                if (regionIds.indexOf(e.target.id) !== -1) {
-                    reinitAfterRefresh();
+                var targetId = e.target.id || '';
+                for (var i = 0; i < regionIds.length; i++) {
+                    if (targetId.startsWith(regionIds[i])) {
+                        reinitAfterRefresh();
+                        break;
+                    }
                 }
             });
         }
