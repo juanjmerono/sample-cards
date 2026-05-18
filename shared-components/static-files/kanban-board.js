@@ -8,7 +8,24 @@
     ];
 
     var sortableInstances = [];
-    var refreshCounter = { pending: 0, total: 0 };
+
+    function refreshAllRegions() {
+        var p1 = apex.region('region-todo').refresh();
+        var p2 = apex.region('region-in-progress').refresh();
+        var p3 = apex.region('region-done').refresh();
+
+        Promise.all([p1, p2, p3]).then(function() {
+            setTimeout(function() {
+                wrapRegions();
+                injectHeaders();
+                addTaskIdAttrs();
+                updateCounts();
+                initSortable();
+            }, 150);
+        }).catch(function(err) {
+            console.error('Kanban: Error refreshing regions', err);
+        });
+    }
 
     function wrapRegions() {
         if ($('#kanban-board-wrap').length) return;
@@ -183,11 +200,7 @@
                                         $('#' + newConfig.countId).text('(' + getCardsItems($newRegion).length + ')');
                                     }
 
-                                    refreshCounter.pending = 0;
-                                    refreshCounter.total = 3;
-                                    apex.region('region-todo').refresh();
-                                    apex.region('region-in-progress').refresh();
-                                    apex.region('region-done').refresh();
+                                    refreshAllRegions();
                                 },
                                 error: function(jqXHR, textStatus, errorThrown) {
                                     apex.message.showErrors([{
@@ -208,21 +221,6 @@
         });
     }
 
-    function reinitAfterRefresh() {
-        refreshCounter.pending++;
-        if (refreshCounter.pending >= refreshCounter.total && refreshCounter.total > 0) {
-            refreshCounter.pending = 0;
-            refreshCounter.total = 0;
-            setTimeout(function() {
-                wrapRegions();
-                injectHeaders();
-                addTaskIdAttrs();
-                updateCounts();
-                initSortable();
-            }, 150);
-        }
-    }
-
     window.KanbanBoard = {
         init: function() {
             setTimeout(function() {
@@ -232,17 +230,6 @@
                 updateCounts();
                 initSortable();
             }, 50);
-
-            $(document).off('apexafterrefresh.kanban').on('apexafterrefresh.kanban', function(e) {
-                var regionIds = ['region-todo', 'region-in-progress', 'region-done'];
-                var targetId = e.target.id || '';
-                for (var i = 0; i < regionIds.length; i++) {
-                    if (targetId.startsWith(regionIds[i])) {
-                        reinitAfterRefresh();
-                        break;
-                    }
-                }
-            });
         }
     };
 })();
