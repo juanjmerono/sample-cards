@@ -1,0 +1,357 @@
+page 24 (
+    name: Kanban Board
+    alias: KANBAN-BOARD
+    title: &APP_NAME. - Kanban Board
+    appearance {
+        pageTemplate: @/standard
+        templateOptions: #DEFAULT#
+    }
+    navigation {
+        cursorFocus: doNotFocusCursor
+    }
+    css {
+        inline:
+            ```css
+            .kanban-board-wrap {
+                display: flex;
+                gap: 0.75rem;
+                align-items: start;
+                flex-wrap: wrap;
+            }
+            .kanban-board-wrap > .t-CardsRegion {
+                flex: 1 1 0;
+                min-width: 280px;
+                background: #f8f8f8;
+                border-radius: 8px;
+                margin: 0;
+                padding: 0.5rem;
+            }
+            .kanban-board-wrap > .t-CardsRegion > .t-CardsRegion-title {
+                display: none;
+            }
+            .kanban-column-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 0.5rem 0.75rem;
+                margin-bottom: 0.5rem;
+            }
+            .kanban-column-title {
+                font-weight: 700;
+                font-size: 0.95rem;
+            }
+            .kanban-count {
+                background: #e0e0e0;
+                border-radius: 12px;
+                padding: 2px 10px;
+                font-size: 0.8rem;
+                color: #555;
+            }
+            .a-TMV--cards li {
+                cursor: grab;
+                transition: box-shadow 0.15s ease;
+            }
+            .a-TMV--cards li:active {
+                cursor: grabbing;
+            }
+            .kanban-ghost {
+                opacity: 0.4;
+                background: #e8e8e8;
+                border: 2px dashed #aaa;
+            }
+            .kanban-drag {
+                box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+                transform: rotate(2deg);
+            }
+            .sortable-fallback {
+                margin-top: 1rem;
+            }
+            .priority-LOW .t-Card-badge { background-color: #4caf50 !important; }
+            .priority-MEDIUM .t-Card-badge { background-color: #2196f3 !important; }
+            .priority-HIGH .t-Card-badge { background-color: #ff9800 !important; }
+            .priority-URGENT .t-Card-badge { background-color: #f44336 !important; }
+            @media (max-width: 768px) {
+                .kanban-board-wrap {
+                    flex-direction: column;
+                }
+                .kanban-board-wrap > .t-CardsRegion {
+                    min-width: 0;
+                }
+            }
+            ```
+    }
+    security {
+        authorizationScheme: mustNotBePublicUser
+        pageAccessProtection: argumentsMustHaveChecksum
+        formAutoComplete: false
+    }
+
+    region about-this-page (
+        name: About this page
+        type: staticContent
+        source {
+            htmlCode: <p>This Kanban board demonstrates drag & drop functionality using APEX Cards regions and SortableJS. Drag cards between columns to change their status — the update is persisted to the database via an AJAX Callback.</p>
+        }
+        layout {
+            sequence: 10
+            slot: body
+        }
+        appearance {
+            template: @/collapsible
+            templateOptions: [
+                #DEFAULT#
+                is-collapsed
+                t-Region--scrollBody
+            ]
+            icon: fa-columns
+            renderComponents: belowContent
+        }
+    )
+
+    region breadcrumb (
+        name: Breadcrumb
+        type: breadcrumb
+        source {
+            breadcrumb: @breadcrumb
+        }
+        layout {
+            sequence: 70
+            slot: breadcrumbBar
+        }
+        appearance {
+            template: @/title-bar
+            templateOptions: [
+                #DEFAULT#
+                t-BreadcrumbRegion--useBreadcrumbTitle
+            ]
+        }
+        componentAppearance {
+            breadcrumbTemplate: @/breadcrumb
+            templateOptions: #DEFAULT#
+        }
+    )
+
+    region done-cards (
+        name: Done Cards
+        type: cards
+        source {
+            location: localDatabase
+            type: sqlQuery
+            sqlQuery:
+                ```sql
+                select id, title, description, status, priority, assignee, sort_order
+                from eba_demo_card_task
+                where status = 'DONE'
+                order by sort_order
+                ```
+        }
+        layout {
+            sequence: 50
+            slot: body
+        }
+        appearance {
+            template: @/cards-container
+            templateOptions: [
+                #DEFAULT#
+                t-CardsRegion--styleB
+            ]
+        }
+        advanced {
+            htmlDomId: region-done
+        }
+        card {
+            primaryKeyColumn1: ID
+        }
+        title {
+            column: TITLE
+        }
+        subtitle {
+            column: ASSIGNEE
+        }
+        body {
+            column: DESCRIPTION
+        }
+        iconAndBadge {
+            badgeColumn: PRIORITY
+        }
+        pagination {
+            showTotalCount: true
+        }
+    )
+
+    region in-progress-cards (
+        name: In Progress Cards
+        type: cards
+        source {
+            location: localDatabase
+            type: sqlQuery
+            sqlQuery:
+                ```sql
+                select id, title, description, status, priority, assignee, sort_order
+                from eba_demo_card_task
+                where status = 'IN_PROGRESS'
+                order by sort_order
+                ```
+        }
+        layout {
+            sequence: 40
+            slot: body
+        }
+        appearance {
+            template: @/cards-container
+            templateOptions: [
+                #DEFAULT#
+                t-CardsRegion--styleB
+            ]
+        }
+        advanced {
+            htmlDomId: region-in-progress
+        }
+        card {
+            primaryKeyColumn1: ID
+        }
+        title {
+            column: TITLE
+        }
+        subtitle {
+            column: ASSIGNEE
+        }
+        body {
+            column: DESCRIPTION
+        }
+        iconAndBadge {
+            badgeColumn: PRIORITY
+        }
+        pagination {
+            showTotalCount: true
+        }
+    )
+
+    region todo-cards (
+        name: To Do Cards
+        type: cards
+        source {
+            location: localDatabase
+            type: sqlQuery
+            sqlQuery:
+                ```sql
+                select id, title, description, status, priority, assignee, sort_order
+                from eba_demo_card_task
+                where status = 'TODO'
+                order by sort_order
+                ```
+        }
+        layout {
+            sequence: 30
+            slot: body
+        }
+        appearance {
+            template: @/cards-container
+            templateOptions: [
+                #DEFAULT#
+                t-CardsRegion--styleB
+            ]
+        }
+        advanced {
+            htmlDomId: region-todo
+        }
+        card {
+            primaryKeyColumn1: ID
+        }
+        title {
+            column: TITLE
+        }
+        subtitle {
+            column: ASSIGNEE
+        }
+        body {
+            column: DESCRIPTION
+        }
+        iconAndBadge {
+            badgeColumn: PRIORITY
+        }
+        pagination {
+            showTotalCount: true
+        }
+    )
+
+    pageItem P24_TASK_ID (
+        type: hidden
+        layout {
+            sequence: 10
+            slot: body
+        }
+        security {
+            sessionStateProtection: checksumRequiredSessionLevel
+            encryptSessionState: false
+        }
+    )
+
+    dynamicAction load-and-init-sortablejs (
+        name: Load and Initialize SortableJS
+        execution {
+            sequence: 10
+        }
+        when {
+            event: ready
+        }
+
+        action load-sortablejs (
+            action: executeJsCode
+            settings {
+                jsCode:
+                    ```javascript-browser
+                    var loaded = 0;
+                    function bothLoaded() { if (++loaded === 2) KanbanBoard.init(); }
+                    var s1 = document.createElement('script');
+                    s1.src = '#APP_FILES#kanban-board.js';
+                    s1.onload = bothLoaded;
+                    document.head.appendChild(s1);
+                    var s2 = document.createElement('script');
+                    s2.src = 'https://cdn.jsdelivr.net/npm/sortablejs@1.15.6/Sortable.min.js';
+                    s2.onload = bothLoaded;
+                    s2.onerror = function() { var $f = $('#sortable-fallback'); if ($f.length) $f.show(); };
+                    document.head.appendChild(s2);
+                    ```
+            }
+            execution {
+                sequence: 10
+            }
+        )
+
+    )
+
+    process UPDATE_TASK_STATUS (
+        name: UPDATE_TASK_STATUS
+        type: executeCode
+        source {
+            plsqlCode:
+                ```plsql
+                begin
+                    update eba_demo_card_task
+                    set status = apex_application.g_x01,
+                        sort_order = to_number(apex_application.g_x02)
+                    where id = to_number(apex_application.g_x03);
+                
+                    apex_json.open_object;
+                    apex_json.write('success', true);
+                    apex_json.close_object;
+                exception
+                    when others then
+                        apex_json.open_object;
+                        apex_json.write('success', false);
+                        apex_json.write('error', sqlerrm);
+                        apex_json.close_object;
+                end;
+                ```
+        }
+        execution {
+            sequence: 10
+            point: ajaxCallback
+        }
+        advanced {
+            executionMappingIdentifier: 8407080854693358
+        }
+    )
+
+)

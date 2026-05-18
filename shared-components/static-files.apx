@@ -48,3 +48,8 @@ file "icons/app-icon-512.png" (
     charSet: utf-8
 )
 
+file kanban-board.js (
+    mimeType: application/javascript
+    charSet: utf-8
+)
+

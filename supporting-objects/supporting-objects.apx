@@ -14,7 +14,11 @@ supportingObject (
             EBA_DEMO_CARD_EMP
             EBA_DEMO_CARD_VEHICLE_SPEED
             EBA_DEMO_CARD_RANDOM_IMAGE
+            EBA_DEMO_CARD_TASK
         ]
+    }
+    upgrade {
+        upgradeWhenSqlQuery: select 1 from user_tables where table_name like 'EBA_DEMO_%' and rownum=1;
     }
     deinstall {
         scriptFile: deinstall-script.sql

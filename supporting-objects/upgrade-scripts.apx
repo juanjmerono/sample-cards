@@ -1,0 +1,25 @@
+upgradeScript "create task table" (
+    execution {
+        sequence: 10
+    }
+    script {
+        contentFile: create-task-table.sql
+    }
+    serverSideCondition {
+        type: noRowsReturned
+        sqlQuery: select 1 from user_tables where table_name = 'EBA_DEMO_CARD_TASK'
+    }
+)
+
+upgradeScript "seed task data" (
+    execution {
+        sequence: 20
+    }
+    script {
+        contentFile: seed-task-data.sql
+    }
+    serverSideCondition {
+        type: noRowsReturned
+        sqlQuery: select 1 from eba_demo_card_task where rownum = 1
+    }
+)

@@ -19,6 +19,24 @@ list advanced (
         }
     )
 
+    entry kanban-board (
+        label: Kanban Board
+        icon {
+            imageIconCssClasses: fa-columns
+        }
+        layout {
+            sequence: 40
+        }
+        link {
+            target: {
+                page: 24
+            }
+        }
+        userDefinedAttributes {
+            1: Learn how to build a drag & drop Kanban board using Cards regions and SortableJS
+        }
+    )
+
     entry no-data-found (
         label: No Data Found
         icon {
@@ -258,7 +276,10 @@ list desktop-navigation-menu (
         }
         isCurrent {
             type: pages
-            pages: 19
+            pages: [
+                19
+                24
+            ]
         }
         link {
             target: {
@@ -558,6 +579,26 @@ list desktop-navigation-menu (
         link {
             target: {
                 page: 21
+            }
+        }
+    )
+
+    entry kanban-board (
+        label: Kanban Board
+        icon {
+            imageIconCssClasses: fa-columns
+        }
+        layout {
+            sequence: 100
+            parentEntry: @advanced
+        }
+        isCurrent {
+            type: pages
+            pages: 24
+        }
+        link {
+            target: {
+                page: 24
             }
         }
     )
