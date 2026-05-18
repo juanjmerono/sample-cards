@@ -52,14 +52,20 @@
         if (!$cards.length) {
             $cards = $region.find('ul').first();
         }
+        if ($cards.length && $cards[0].tagName !== 'UL') {
+            var $ul = $cards.find('ul').first();
+            if ($ul.length) {
+                $cards = $ul;
+            }
+        }
         return $cards;
     }
 
     function getCardsItems($region) {
         var $list = getCardsList($region);
-        var $items = $list.find('li');
+        var $items = $list.children('li');
         if (!$items.length) {
-            $items = $list.children();
+            $items = $list.find('li');
         }
         return $items;
     }
@@ -99,18 +105,18 @@
             var $cardsContainer = getCardsList($region);
             if ($cardsContainer.length) {
                 var s = new Sortable($cardsContainer[0], {
-                    group: 'kanban',
+                    group: { name: 'kanban', pull: true, put: true },
                     animation: 150,
                     ghostClass: 'kanban-ghost',
                     dragClass: 'kanban-drag',
-                    filter: '.kanban-column-header',
                     draggable: 'li[data-task-id]',
                     onEnd: function(evt) {
-                        var $from = $(evt.from);
-                        var $items = $from.children('li[data-task-id]');
-                        var $draggedItem = $items.eq(evt.oldIndex);
+                        var $draggedItem = $(evt.item);
                         var taskId = $draggedItem.attr('data-task-id');
                         var newRegionEl = evt.to.closest('[id^="region-"]');
+                        if (!newRegionEl) {
+                            newRegionEl = $(evt.to).closest('[id^="region-"]')[0];
+                        }
                         var newRegionId = newRegionEl ? newRegionEl.id : null;
                         var newStatus = null;
                         config.forEach(function(cfg) {
@@ -119,7 +125,7 @@
                         var newPosition = evt.newIndex;
 
                         if (!taskId) {
-                            console.error('Kanban: Could not determine task ID, from:', evt.from.className, 'oldIndex:', evt.oldIndex, 'items:', $items.length);
+                            console.error('Kanban: Could not determine task ID');
                             return;
                         }
 
@@ -148,11 +154,7 @@
                                         unsafe: false
                                     }]);
                                     var $from = $(evt.from);
-                                    var $items = $from.children('li[data-task-id]');
-                                    var $draggedItem = $items.eq(evt.oldIndex);
-                                    if ($draggedItem.length) {
-                                        $from.append($draggedItem);
-                                    }
+                                    $from.append($draggedItem);
                                 }
                             }
                         );
